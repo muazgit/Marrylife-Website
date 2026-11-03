@@ -236,7 +236,7 @@ function CreateBiodata() {
         <div className="mx-auto mt-12 flex max-w-4xl flex-col items-center justify-between gap-5 rounded-2xl bg-lavender px-7 py-6 text-start shadow-sm sm:flex-row">
           <div>
             <h3 className="text-xl font-bold text-foreground">
-              অর্ধেকদ্বীন অ্যান্ড্রয়েড অ্যাপ
+              MarryLife অ্যান্ড্রয়েড অ্যাপ
             </h3>
             <p className="mt-1 text-foreground/75">
               মোবাইলে খোঁজার সবচেয়ে সহজ উপায় — এখনই ডাউনলোড করুন
@@ -325,12 +325,12 @@ function RingsIcon({ className }: { className?: string }) {
 const STATS = [
   {
     icon: CoupleIcon,
-    label: "সর্বমোট পাত্র-পাত্রীর বায়োডাটা",
-    value: "১১৯৮৪",
+    label: "মোট নিবন্ধিত বায়োডাটা",
+    value: "৯৮৫০",
   },
-  { icon: PersonIcon, label: "সর্বমোট পাত্রের বায়োডাটা", value: "৫৫৫০" },
-  { icon: FemaleIcon, label: "সর্বমোট পাত্রীর বায়োডাটা", value: "৬৪৩৪" },
-  { icon: RingsIcon, label: "সর্বমোট সফল বিবাহ", value: "৩০৮০+" },
+  { icon: PersonIcon, label: "পাত্রের বায়োডাটা", value: "৪৫২০" },
+  { icon: FemaleIcon, label: "পাত্রীর বায়োডাটা", value: "৫৩৩০" },
+  { icon: RingsIcon, label: "সম্পন্ন বিবাহ", value: "১৮৫০+" },
 ];
 
 function Stats() {
@@ -338,7 +338,7 @@ function Stats() {
     <section className="bg-lavender py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">
-          <span className="text-brand-pink">অর্ধেকদ্বীন</span> সেবা গ্রহীতার
+          <span className="text-brand-pink">MarryLife</span> ব্যবহারকারীর
           পরিসংখ্যান
         </h2>
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -366,22 +366,22 @@ const STEPS = [
   {
     icon: UserPlus,
     title: "বায়োডাটা তৈরি করুন",
-    desc: "খুব সহজেই বিনামূল্যে অর্ধেকদ্বীনে বায়োডাটা তৈরি করতে পারবেন।",
+    desc: "মৌলিক ও ব্যক্তিগত তথ্য দিয়ে কয়েক মিনিটেই নিজের বায়োডাটা তৈরি করে ফেলুন — একদম বিনামূল্যে।",
   },
   {
     icon: Search,
     title: "বায়োডাটা খুঁজুন",
-    desc: "বয়স, উপজেলা, পেশা, শিক্ষাগত যোগ্যতা সহ অনেক ফিল্টার ব্যবহার করে সহজেই বায়োডাটা খুঁজতে পারবেন।",
+    desc: "বয়স, এলাকা, পেশা কিংবা শিক্ষাগত যোগ্যতা — প্রয়োজনমতো ফিল্টার ব্যবহার করে মানানসই পাত্র-পাত্রীর তালিকা বের করুন।",
   },
   {
     icon: Phone,
     title: "যোগাযোগ করুন",
-    desc: "আপনার বায়োডাটা কেউ পছন্দ করলে অথবা আপনি কারও বায়োডাটা পছন্দ করলে সরাসরি অভিভাবকের সাথে যোগাযোগ করতে পারবেন।",
+    desc: "পছন্দ হয়ে গেলে অভিভাবকের মাধ্যমেই সরাসরি যোগাযোগ করুন — প্রতিটি ধাপ অভিভাবকের তত্ত্বাবধানে সম্পন্ন হয়।",
   },
   {
     icon: MessagesSquare,
     title: "বিবাহ সম্পন্ন করুন",
-    desc: "বায়োডাটা ও কথাবার্তা পছন্দ হলে নিজ দায়িত্বে ভালোভাবে খোঁজ নিয়ে সুন্নতি বিবাহ সম্পন্ন করুন।",
+    desc: "সব ঠিক থাকলে পরিবারের সম্মতিতে ভালোভাবে খোঁজ-খবর নিয়ে সুন্নতি অনুযায়ী বিবাহ সম্পন্ন করুন।",
   },
 ];
 
@@ -390,7 +390,7 @@ function HowItWorks() {
     <section className="bg-card py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <h2 className="text-center text-3xl font-bold text-foreground sm:text-4xl">
-          <span className="text-brand-pink">অর্ধেকদ্বীন</span> যেভাবে কাজ করে
+          <span className="text-brand-pink">MarryLife</span> কাজের ধাপগুলো
         </h2>
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {STEPS.map((step) => (
@@ -412,7 +412,7 @@ function HowItWorks() {
         </div>
         <div className="mt-12 text-center">
           <a
-            href="https://m.me/ordhekdeen"
+            href="#"
             className="inline-flex items-center gap-2 rounded-lg bg-messenger px-7 py-3.5 text-[15px] font-semibold text-white shadow-md transition-opacity hover:opacity-90"
           >
             <Facebook className="h-5 w-5" /> মেসেঞ্জারে আমাদের সাথে কথা বলুন
@@ -455,18 +455,18 @@ function Footer() {
         <div>
           <Logo light />
           <p className="mt-5 text-sm leading-relaxed text-footer-foreground/80">
-            অর্ধেকদ্বীন একটি বিশ্বস্ত ইসলামিক বিবাহ মাধ্যম, যেখানে দ্বীনদার
-            পাত্র-পাত্রীরা বায়োডাটার মাধ্যমে সহজে উপযুক্ত জীবনসঙ্গী খুঁজে নিতে
-            পারেন।
+            MarryLife একটি অনলাইন ইসলামিক ম্যাট্রিমনি প্ল্যাটফর্ম, যেখানে দ্বীনদার
+            পাত্র-পাত্রীরা নিজের পছন্দমতো বায়োডাটা খুঁজে অভিভাবকের মাধ্যমে
+            উপযুক্ত জীবনসঙ্গী নির্বাচন করতে পারেন।
           </p>
           <a
-            href="mailto:support@ordhekdeen.com"
+            href="mailto:support@marrylife.com"
             className="mt-5 flex items-center gap-2 text-sm text-footer-foreground/90 transition-colors hover:text-brand-pink-soft"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-footer-foreground/10">
               <Mail className="h-4 w-4" />
             </span>
-            support@ordhekdeen.com
+            support@marrylife.com
           </a>
         </div>
 
@@ -513,7 +513,7 @@ function Footer() {
             প্লে স্টোর থেকে অ্যান্ড্রয়েড অ্যাপ ডাউনলোড করুন:
           </p>
           <a
-            href="https://play.google.com/store/apps/details?id=com.ordhekdeen.lite"
+            href="#"
             className="mt-3 flex w-fit items-center gap-3 rounded-lg border border-footer-foreground/25 px-4 py-2 transition-colors hover:bg-footer-foreground/10"
           >
             <Play className="h-6 w-6 fill-current text-card" />
@@ -531,9 +531,9 @@ function Footer() {
           </p>
           <div className="mt-3 flex gap-2.5">
             {[
-              { icon: Facebook, href: "https://facebook.com/ordhekdeen" },
-              { icon: Youtube, href: "https://youtube.com/@ordhekdeen" },
-              { icon: Instagram, href: "https://instagram.com/ordhekdeen" },
+              { icon: Facebook, href: "#" },
+              { icon: Youtube, href: "#" },
+              { icon: Instagram, href: "#" },
             ].map((s, i) => (
               <a
                 key={i}
@@ -547,7 +547,7 @@ function Footer() {
         </div>
       </div>
       <div className="border-t border-footer-foreground/15 py-5 text-center text-sm text-footer-foreground/75">
-        © ২০২৬ OrdhekDeen.com সর্বস্বত্ব সংরক্ষিত।
+        © ২০২৬ MarryLife.com সর্বস্বত্ব সংরক্ষিত।
       </div>
     </footer>
   );
@@ -567,8 +567,8 @@ function Index() {
       </main>
       <Footer />
       <a
-        href="https://m.me/ordhekdeen"
-        aria-label="মেসেঞ্জারে কথা বলুন"
+        href="#"
+        aria-label="যোগাযোগ করুন"
         className="fixed right-5 bottom-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-messenger text-white shadow-lg transition-transform hover:scale-105"
       >
         <Facebook className="h-6 w-6 fill-current" />
