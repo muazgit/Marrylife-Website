@@ -23,17 +23,17 @@ import heroBg from "@/assets/hero-bg.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "অর্ধেকদ্বীন | বৃহত্তম ইসলামিক ম্যাট্রিমনি" },
+      { title: "MarryLife | দ্বীনদার জীবনসঙ্গী খোঁজার বিশ্বস্ত প্ল্যাটফর্ম" },
       {
         name: "description",
         content:
-          "আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই সহজ।",
+          "আপনার পছন্দের এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খুঁজুন ও তৈরি করুন — সম্পূর্ণ বিনামূল্যে।",
       },
-      { property: "og:title", content: "অর্ধেকদ্বীন | বৃহত্তম ইসলামিক ম্যাট্রিমনি" },
+      { property: "og:title", content: "MarryLife | দ্বীনদার জীবনসঙ্গী খোঁজার বিশ্বস্ত প্ল্যাটফর্ম" },
       {
         property: "og:description",
         content:
-          "আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই সহজ।",
+          "আপনার পছন্দের এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খুঁজুন ও তৈরি করুন — সম্পূর্ণ বিনামূল্যে।",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,8 +64,8 @@ function Logo({ light = false }: { light?: boolean }) {
     <a href="/" className="flex items-center gap-2">
       <HeartMark className="h-9 w-9 text-brand" />
       <span className="text-2xl font-bold leading-none">
-        <span className={light ? "text-card" : "text-brand"}>অর্ধেক</span>
-        <span className="text-brand-pink">দ্বীন</span>
+        <span className={light ? "text-card" : "text-brand"}>Marry</span>
+        <span className="text-brand-pink">Life</span>
       </span>
     </a>
   );
@@ -75,7 +75,7 @@ function Logo({ light = false }: { light?: boolean }) {
 
 const NAV_LINKS = [
   { label: "হোম", href: "#", active: true },
-  { label: "বায়োডাটা", href: "https://ordhekdeen.com/biodatas" },
+  { label: "বায়োডাটা", href: "#" },
   { label: "আমাদের সম্পর্কে", href: "#" },
   { label: "জিজ্ঞাসা", href: "#" },
   { label: "নির্দেশনা", href: "#" },
@@ -171,12 +171,12 @@ function Hero() {
       />
       <div className="relative mx-auto max-w-5xl px-4 pt-16 pb-24 text-center sm:pt-20">
         <h1 className="text-5xl leading-tight font-bold sm:text-6xl">
-          <span className="text-foreground">বৃহত্তম ইসলামিক</span>
-          <span className="mt-1 block text-brand-pink">ম্যাট্রিমনি</span>
+          <span className="text-foreground">খুঁজে নিন আপনার দ্বীনদার</span>
+          <span className="mt-1 block text-brand-pink">জীবনসঙ্গী</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/85">
-          আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই
-          সহজ।
+          আপনার পছন্দের এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খুঁজুন, মানানসই
+          হলে অভিভাবকের সাথে যোগাযোগ করুন — পুরোটাই বিনামূল্যে।
         </p>
         <div className="mx-auto mt-8 max-w-2xl rounded-xl border-2 border-dashed border-brand/30 bg-card/60 px-6 py-5 text-foreground/90 shadow-sm">
           <p>
@@ -195,7 +195,7 @@ function Hero() {
             options={["দেশ নির্বাচন করুন"]}
           />
           <a
-            href="https://ordhekdeen.com/biodatas"
+            href="#"
             className="flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 text-[15px] font-semibold whitespace-nowrap text-brand-foreground shadow-sm transition-colors hover:bg-brand/90"
           >
             <Search className="h-4.5 w-4.5" /> বায়োডাটা খুঁজুন
@@ -213,24 +213,24 @@ function CreateBiodata() {
     <section className="bg-card py-16 text-center sm:py-20">
       <div className="mx-auto max-w-7xl px-4">
         <h2 className="text-3xl font-bold sm:text-4xl">
-          <span className="text-brand-pink">অর্ধেকদ্বীন</span>{" "}
+          <span className="text-brand-pink">MarryLife</span>{" "}
           <span className="text-foreground">
-            সম্পূর্ণ বিনামূল্যে বায়োডাটা তৈরি করা যায়
+            এ কয়েক মিনিটেই তৈরি করুন নিজের বায়োডাটা
           </span>
         </h2>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <a
-            href="https://ordhekdeen.com/login-selection"
+            href="#"
             className="flex items-center gap-2 rounded-lg bg-brand px-7 py-3.5 text-[15px] font-semibold text-brand-foreground shadow-md transition-colors hover:bg-brand/90"
           >
             <Plus className="h-4.5 w-4.5" /> বায়োডাটা তৈরি করুন
           </a>
           <a
-            href="https://youtu.be/p8vnL52wZlk"
+            href="#"
             className="flex items-center gap-2 rounded-lg border border-border bg-card px-7 py-3.5 text-[15px] font-semibold text-foreground shadow-sm transition-colors hover:bg-muted"
           >
-            <Youtube className="h-5 w-5 text-brand" /> যেভাবে বায়োডাটা তৈরি
-            করবেন
+            <Youtube className="h-5 w-5 text-brand" /> কীভাবে তৈরি করবেন,
+            দেখে নিন
           </a>
         </div>
         <div className="mx-auto mt-12 flex max-w-4xl flex-col items-center justify-between gap-5 rounded-2xl bg-lavender px-7 py-6 text-start shadow-sm sm:flex-row">
@@ -239,11 +239,11 @@ function CreateBiodata() {
               অর্ধেকদ্বীন অ্যান্ড্রয়েড অ্যাপ
             </h3>
             <p className="mt-1 text-foreground/75">
-              আরও সহজে পাত্র-পাত্রী খুঁজতে এখনই ডাউনলোড করুন
+              মোবাইলে খোঁজার সবচেয়ে সহজ উপায় — এখনই ডাউনলোড করুন
             </p>
           </div>
           <a
-            href="https://play.google.com/store/apps/details?id=com.ordhekdeen.lite"
+            href="#"
             className="flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-[15px] font-semibold text-brand-foreground shadow-sm transition-colors hover:bg-brand/90"
           >
             <Smartphone className="h-4.5 w-4.5" /> অ্যাপ ডাউনলোড করুন
