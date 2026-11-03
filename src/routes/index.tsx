@@ -178,16 +178,7 @@ function Hero() {
           আপনার পছন্দের এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খুঁজুন, মানানসই
           হলে অভিভাবকের সাথে যোগাযোগ করুন — পুরোটাই বিনামূল্যে।
         </p>
-        <div className="mx-auto mt-8 max-w-2xl rounded-xl border-2 border-dashed border-brand/30 bg-card/60 px-6 py-5 text-foreground/90 shadow-sm">
-          <p>
-            যে ব্যক্তি বিয়ে করলো, সে তার অর্ধেক দ্বীন পূর্ণ করে ফেললো। বাকি
-            অর্ধেকের জন্য সে আল্লাহকে ভয় করুক।
-          </p>
-          <p className="mt-1 font-semibold">
-            (বাইহাকী, শুআবুল ঈমান: ৫৪৮৬)
-          </p>
-        </div>
-        <div className="mx-auto mt-10 flex max-w-4xl flex-col gap-4 rounded-2xl bg-card p-6 text-start shadow-xl shadow-brand/10 sm:flex-row sm:items-end">
+        <div className="mx-auto mt-12 flex max-w-4xl flex-col gap-4 rounded-2xl bg-card p-6 text-start shadow-xl shadow-brand/10 sm:flex-row sm:items-end">
           <SearchField label="আমি খুঁজছি" options={["সবগুলো"]} />
           <SearchField label="বৈবাহিক অবস্থা" options={["সবগুলো"]} />
           <SearchField
