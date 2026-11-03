@@ -74,11 +74,11 @@ function Logo({ light = false }: { light?: boolean }) {
 /* --------------------------------- header --------------------------------- */
 
 const NAV_LINKS = [
-  { label: "ক্বম", href: "#", active: true },
+  { label: "হোম", href: "#", active: true },
   { label: "বায়োডাটা", href: "https://ordhekdeen.com/biodatas" },
   { label: "আমাদের সম্পর্কে", href: "#" },
   { label: "জিজ্ঞাসা", href: "#" },
-  { label: "নিয়মনীতি", href: "#" },
+  { label: "নির্দেশনা", href: "#" },
   { label: "যোগাযোগ", href: "#" },
 ];
 
@@ -105,7 +105,7 @@ function Header() {
             href="#"
             className="flex items-center gap-1 text-foreground/80 transition-colors hover:text-brand-pink"
           >
-            লোকালযহূর <ChevronDown className="h-4 w-4" />
+            সেবাসমূহ <ChevronDown className="h-4 w-4" />
           </a>
         </nav>
         <div className="flex items-center gap-3">
@@ -180,11 +180,11 @@ function Hero() {
         </p>
         <div className="mx-auto mt-8 max-w-2xl rounded-xl border-2 border-dashed border-brand/30 bg-card/60 px-6 py-5 text-foreground/90 shadow-sm">
           <p>
-            যে ব্যক্তি বিয়ে করলো সে তার অর্ধেক দ্বীন পূর্ণ করে ফেললো। বাকি
-            অর্ধেকের জন্য সে আল্লাহকে ভয় করুক। -
+            যে ব্যক্তি বিয়ে করলো, সে তার অর্ধেক দ্বীন পূর্ণ করে ফেললো। বাকি
+            অর্ধেকের জন্য সে আল্লাহকে ভয় করুক।
           </p>
           <p className="mt-1 font-semibold">
-            (বায়হাকী, শু'আবুল ঈমান –৫৪৮৬)
+            (বাইহাকী, শুআবুল ঈমান: ৫৪৮৬)
           </p>
         </div>
         <div className="mx-auto mt-10 flex max-w-4xl flex-col gap-4 rounded-2xl bg-card p-6 text-start shadow-xl shadow-brand/10 sm:flex-row sm:items-end">
@@ -376,12 +376,12 @@ const STEPS = [
   {
     icon: Phone,
     title: "যোগাযোগ করুন",
-    desc: "আপনার বায়োডাটা কেউ পছন্দ করলে অথবা আপনি কারো বায়োডাটা পছন্দ করলে সরাসরি অভিভাবকের সাথে যোগাযোগ করতে পারবেন।",
+    desc: "আপনার বায়োডাটা কেউ পছন্দ করলে অথবা আপনি কারও বায়োডাটা পছন্দ করলে সরাসরি অভিভাবকের সাথে যোগাযোগ করতে পারবেন।",
   },
   {
     icon: MessagesSquare,
     title: "বিবাহ সম্পন্ন করুন",
-    desc: "বায়োডাটা ও কথাবার্তা পছন্দ হলে নিজ দায়িত্বে ভালভাবে খোঁজ নিয়ে সুন্নতি বিবাহ সম্পন্ন করুন।",
+    desc: "বায়োডাটা ও কথাবার্তা পছন্দ হলে নিজ দায়িত্বে ভালোভাবে খোঁজ নিয়ে সুন্নতি বিবাহ সম্পন্ন করুন।",
   },
 ];
 
