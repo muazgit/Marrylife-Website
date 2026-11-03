@@ -78,19 +78,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "অর্ধেকদ্বীন | বৃহত্তম ইসলামিক ম্যাট্রিমনি" },
+      {
+        name: "description",
+        content:
+          "আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই সহজ।",
+      },
+      { name: "author", content: "OrdhekDeen" },
+      { property: "og:title", content: "অর্ধেকদ্বীন | বৃহত্তম ইসলামিক ম্যাট্রিমনি" },
+      {
+        property: "og:description",
+        content:
+          "আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই সহজ।",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
