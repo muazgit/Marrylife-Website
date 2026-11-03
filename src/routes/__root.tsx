@@ -78,18 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "অর্ধেকদ্বীন | বৃহত্তম ইসলামিক ম্যাট্রিমনি" },
+      { title: "MarryLife | দ্বীনদার জীবনসঙ্গী খোঁজার বিশ্বস্ত প্ল্যাটফর্ম" },
       {
         name: "description",
         content:
-          "আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই সহজ।",
+          "আপনার পছন্দের এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খুঁজুন ও তৈরি করুন — সম্পূর্ণ বিনামূল্যে।",
       },
-      { name: "author", content: "OrdhekDeen" },
-      { property: "og:title", content: "অর্ধেকদ্বীন | বৃহত্তম ইসলামিক ম্যাট্রিমনি" },
+      { name: "author", content: "MarryLife" },
+      { property: "og:title", content: "MarryLife | দ্বীনদার জীবনসঙ্গী খোঁজার বিশ্বস্ত প্ল্যাটফর্ম" },
       {
         property: "og:description",
         content:
-          "আপনার নিকটবর্তী এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খোঁজা এখন খুবই সহজ।",
+          "আপনার পছন্দের এলাকার দ্বীনদার পাত্র-পাত্রীর বায়োডাটা খুঁজুন ও তৈরি করুন — সম্পূর্ণ বিনামূল্যে।",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
