@@ -236,7 +236,7 @@ function CreateBiodata() {
         <div className="mx-auto mt-12 flex max-w-4xl flex-col items-center justify-between gap-5 rounded-2xl bg-lavender px-7 py-6 text-start shadow-sm sm:flex-row">
           <div>
             <h3 className="text-xl font-bold text-foreground">
-              অর্ধেকদ্বীন অ্যান্ড্রয়েড অ্যাপ
+              MarryLife অ্যান্ড্রয়েড অ্যাপ
             </h3>
             <p className="mt-1 text-foreground/75">
               মোবাইলে খোঁজার সবচেয়ে সহজ উপায় — এখনই ডাউনলোড করুন
