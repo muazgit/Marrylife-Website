@@ -17,6 +17,10 @@ import {
   Facebook,
   Instagram,
   Play,
+  UsersRound,
+  UserRound,
+  Venus,
+  HeartHandshake,
 } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -247,81 +251,15 @@ function CreateBiodata() {
 
 /* --------------------------------- stats ---------------------------------- */
 
-function CoupleIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 52" className={className} aria-hidden="true">
-      <circle cx="20" cy="14" r="9" fill="currentColor" />
-      <path
-        d="M4 50c0-11 7-17 16-17s16 6 16 17z"
-        fill="currentColor"
-      />
-      <path
-        d="M48 2c-9 0-15 6-15 14 0 5 2 8 4 11-8 4-13 11-13 23h48c0-12-5-19-13-23 2-3 4-6 4-11 0-8-6-14-15-14z"
-        fill="currentColor"
-      />
-      <circle cx="48" cy="16" r="7" fill="var(--color-card)" />
-    </svg>
-  );
-}
-
-function PersonIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 48 52" className={className} aria-hidden="true">
-      <circle cx="24" cy="13" r="10" fill="currentColor" />
-      <path
-        d="M4 50c0-12 9-19 20-19s20 7 20 19z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function FemaleIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 48 52" className={className} aria-hidden="true">
-      <path
-        d="M24 0C13 0 6 8 6 17c0 6 2 10 5 14C4 36 0 44 0 52h48c0-8-4-16-11-21 3-4 5-8 5-14C42 8 35 0 24 0z"
-        fill="currentColor"
-      />
-      <circle cx="24" cy="18" r="9" fill="var(--color-card)" />
-    </svg>
-  );
-}
-
-function RingsIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 72 56" className={className} aria-hidden="true">
-      <circle
-        cx="24"
-        cy="34"
-        r="16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="5"
-      />
-      <circle
-        cx="44"
-        cy="34"
-        r="16"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="5"
-      />
-      <path d="M53 4l8 8-8 8-8-8z" fill="currentColor" />
-      <path d="M50 4h-3l-4 8h5z" fill="var(--color-card)" opacity="0.4" />
-    </svg>
-  );
-}
-
 const STATS = [
   {
-    icon: CoupleIcon,
+    icon: UsersRound,
     label: "মোট নিবন্ধিত বায়োডাটা",
     value: "৯৮৫০",
   },
-  { icon: PersonIcon, label: "পাত্রের বায়োডাটা", value: "৪৫২০" },
-  { icon: FemaleIcon, label: "পাত্রীর বায়োডাটা", value: "৫৩৩০" },
-  { icon: RingsIcon, label: "সম্পন্ন বিবাহ", value: "১৮৫০+" },
+  { icon: UserRound, label: "পাত্রের বায়োডাটা", value: "৪৫২০" },
+  { icon: Venus, label: "পাত্রীর বায়োডাটা", value: "৫৩৩০" },
+  { icon: HeartHandshake, label: "সম্পন্ন বিবাহ", value: "১৮৫০+" },
 ];
 
 function Stats() {
