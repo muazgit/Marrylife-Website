@@ -39,9 +39,6 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
       href={`/biodata/${biodata.id}`}
       className="group block rounded-xl border border-gray-100 dark:border-border/60 bg-card shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-brand/30 overflow-hidden"
     >
-      {/* Top color bar */}
-      <div className={`h-1.5 w-full ${isGroom ? "bg-sky-500" : "bg-pink-500"}`} />
-
       <div className="p-4 sm:p-5">
         {/* Header row: avatar + gender badge / wishlist + biodata number */}
         <div className="flex items-center gap-3.5 mb-3.5">
