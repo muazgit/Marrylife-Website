@@ -49,7 +49,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
             } shadow-xs overflow-hidden flex items-center justify-center`}
           >
             <Image
-              src={isGroom ? "/brand/ml-groom.svg" : "/brand/ml-bride.svg"}
+              src={isGroom ? "/brand/male.svg" : "/brand/female.svg"}
               alt={isGroom ? "পাত্রের অবতার" : "পাত্রীর অবতার"}
               width={64}
               height={64}
