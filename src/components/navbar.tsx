@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronDown, Globe, Menu, X, Sparkles, BookOpen, FileCheck2, Baby } from "lucide-react";
 import {
   DropdownMenu,
@@ -38,7 +39,7 @@ export function Logo({ light = false }: { light?: boolean }) {
 }
 
 const NAV_LINKS = [
-  { label: "হোম", href: "/", active: true },
+  { label: "হোম", href: "/" },
   { label: "বায়োডাটা", href: "/biodatas" },
   { label: "আমাদের সম্পর্কে", href: "/about" },
   { label: "জিজ্ঞাসা", href: "/faq" },
@@ -74,7 +75,11 @@ const SERVICES = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : Boolean(pathname?.startsWith(href));
 
   // Close menu on ESC key press
   useEffect(() => {
@@ -105,19 +110,22 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-7 text-[15px] font-medium lg:flex">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className={
-                  link.active
-                    ? "font-semibold text-brand-pink"
-                    : "text-foreground/80 transition-colors hover:text-brand-pink"
-                }
-              >
-                {link.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={
+                    active
+                      ? "font-semibold text-brand-pink"
+                      : "text-foreground/80 transition-colors hover:text-brand-pink"
+                  }
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
 
             {/* Services Dropdown */}
             <DropdownMenu>
@@ -189,21 +197,24 @@ export function Navbar() {
             <div className="flex flex-col space-y-3 max-w-lg mx-auto">
               {/* Navigation links */}
               <div className="space-y-1">
-                {NAV_LINKS.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors ${
-                      link.active
-                        ? "bg-brand/10 text-brand-pink font-bold"
-                        : "text-foreground/85 hover:bg-muted hover:text-foreground"
-                    }`}
-                  >
-                    <span>{link.label}</span>
-                    <i className="ri-arrow-right-s-line text-muted-foreground text-base" />
-                  </Link>
-                ))}
+                {NAV_LINKS.map((link) => {
+                  const active = isActive(link.href);
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors ${
+                        active
+                          ? "bg-brand/10 text-brand-pink font-bold"
+                          : "text-foreground/85 hover:bg-muted hover:text-foreground"
+                      }`}
+                    >
+                      <span>{link.label}</span>
+                      <i className="ri-arrow-right-s-line text-muted-foreground text-base" />
+                    </Link>
+                  );
+                })}
               </div>
 
               {/* Services Section */}
