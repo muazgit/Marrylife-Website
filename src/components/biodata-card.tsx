@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { toBengaliNumber, getAge, formatHeight } from "@/lib/utils/bengali";
 import type { Tables } from "@/types/database.types";
 
@@ -38,24 +39,42 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
       <div className={`h-1.5 w-full ${isGroom ? "bg-sky-500" : "bg-pink-500"}`} />
 
       <div className="p-4 sm:p-5">
-        {/* Header row: biodata number + gender badge */}
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <div>
-            <span className="text-[11px] sm:text-xs font-bold text-muted-foreground tracking-wide">
-              বায়োডাটা নং
-            </span>
+        {/* Header row: avatar + biodata number + gender badge */}
+        <div className="flex items-center gap-3.5 mb-3.5">
+          <div
+            className={`relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 rounded-full p-0.5 border-2 ${
+              isGroom
+                ? "border-sky-300/70 bg-sky-50 shadow-sky-100"
+                : "border-pink-300/70 bg-pink-50 shadow-pink-100"
+            } shadow-xs overflow-hidden flex items-center justify-center`}
+          >
+            <Image
+              src={isGroom ? "/brand/ml-groom.svg" : "/brand/ml-bride.svg"}
+              alt={isGroom ? "পাত্রের অবতার" : "পাত্রীর অবতার"}
+              width={64}
+              height={64}
+              className="h-full w-full object-contain group-hover:scale-105 transition-transform"
+            />
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-1 mb-1">
+              <span className="text-[11px] sm:text-xs font-bold text-muted-foreground tracking-wide">
+                বায়োডাটা নং
+              </span>
+              <span
+                className={`shrink-0 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] sm:text-[11px] font-bold ${
+                  isGroom ? "bg-sky-500/10 text-sky-700" : "bg-pink-500/10 text-pink-700"
+                }`}
+              >
+                <i className={`${isGroom ? "ri-user-star-line" : "ri-user-heart-line"} text-xs`} />
+                {GENDER_LABELS[biodata.gender] || biodata.gender}
+              </span>
+            </div>
             <h3 className="text-base sm:text-lg font-extrabold text-brand leading-tight">
               {biodataNumber}
             </h3>
           </div>
-          <span
-            className={`shrink-0 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] sm:text-[11px] font-bold ${
-              isGroom ? "bg-sky-500/10 text-sky-700" : "bg-pink-500/10 text-pink-700"
-            }`}
-          >
-            <i className={`${isGroom ? "ri-user-star-line" : "ri-user-heart-line"} text-xs`} />
-            {GENDER_LABELS[biodata.gender] || biodata.gender}
-          </span>
         </div>
 
         {/* Info grid */}
