@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 760" fill="none" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5f7" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#fff0f3" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="1" />
+    </linearGradient>
+
+    <radialGradient id="centerGlow" cx="50%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#ffe4e8" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#fff1f3" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="roseAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#9f1239" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Islamic 8-Point Star Pattern Component -->
+    <pattern id="islamicPattern" width="120" height="120" patternUnits="userSpaceOnUse">
+      <g stroke="#9f1239" stroke-width="0.75" stroke-opacity="0.07" fill="none">
+        <!-- 8-Point Star -->
+        <rect x="35" y="35" width="50" height="50" />
+        <rect x="35" y="35" width="50" height="50" transform="rotate(45 60 60)" />
+        <circle cx="60" cy="60" r="18" stroke-dasharray="3,3" />
+        <circle cx="60" cy="60" r="3" fill="#9f1239" fill-opacity="0.1" stroke="none" />
+        <!-- Corner Connecting Octagrams -->
+        <circle cx="0" cy="0" r="12" />
+        <circle cx="120" cy="0" r="12" />
+        <circle cx="0" cy="120" r="12" />
+        <circle cx="120" cy="120" r="12" />
+        <path d="M0,60 L60,0 M60,0 L120,60 M120,60 L60,120 M60,120 L0,60" stroke-opacity="0.04" />
+      </g>
+    </pattern>
+
+    <!-- Subtle Arch Motif Def -->
+    <linearGradient id="archGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9f1239" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#9f1239" stop-opacity="0.0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="1440" height="760" fill="url(#bgGrad)" />
+  <rect width="1440" height="760" fill="url(#centerGlow)" />
+
+  <!-- Geometric Arabesque Pattern Overlay -->
+  <rect width="1440" height="760" fill="url(#islamicPattern)" />
+
+  <!-- Ambient Light Halos on Sides -->
+  <circle cx="150" cy="180" r="280" fill="url(#roseAccent)" filter="blur(60px)" />
+  <circle cx="1290" cy="220" r="320" fill="url(#roseAccent)" filter="blur(70px)" />
+
+  <!-- Decorative Islamic Arch Silhouettes (Left & Right Flanks) -->
+  <g fill="url(#archGrad)" stroke="#9f1239" stroke-width="1" stroke-opacity="0.08">
+    <!-- Left Archway Layer 1 -->
+    <path d="M-60,760 V260 Q-20,200 40,160 Q100,200 140,260 V760 Z" />
+    <!-- Left Archway Layer 2 -->
+    <path d="M-100,760 V320 Q-60,260 0,220 Q60,260 100,320 V760 Z" />
+    <!-- Right Archway Layer 1 -->
+    <path d="M1500,760 V260 Q1460,200 1400,160 Q1340,200 1300,260 V760 Z" />
+    <!-- Right Archway Layer 2 -->
+    <path d="M1540,760 V320 Q1500,260 1440,220 Q1380,260 1340,320 V760 Z" />
+  </g>
+
+  <!-- Elegant Hanging Islamic Fanous (Lanterns) - Stylized & Original -->
+  <g stroke="#9f1239" stroke-width="1.2" stroke-opacity="0.2" fill="none">
+    <!-- Left Lantern 1 -->
+    <line x1="120" y1="0" x2="120" y2="140" stroke-dasharray="4,3" />
+    <polygon points="120,140 132,156 128,185 120,195 112,185 108,156" fill="#fff" fill-opacity="0.7" stroke-opacity="0.25" />
+    <circle cx="120" cy="168" r="4" fill="#e11d48" fill-opacity="0.3" stroke="none" />
+    <line x1="120" y1="195" x2="120" y2="208" />
+
+    <!-- Left Lantern 2 (Smaller, higher) -->
+    <line x1="210" y1="0" x2="210" y2="90" stroke-dasharray="3,3" />
+    <polygon points="210,90 220,102 216,125 210,133 204,125 200,102" fill="#fff" fill-opacity="0.6" stroke-opacity="0.2" />
+    <circle cx="210" cy="112" r="3" fill="#e11d48" fill-opacity="0.25" stroke="none" />
+
+    <!-- Right Lantern 1 -->
+    <line x1="1320" y1="0" x2="1320" y2="135" stroke-dasharray="4,3" />
+    <polygon points="1320,135 1332,151 1328,180 1320,190 1312,180 1308,151" fill="#fff" fill-opacity="0.7" stroke-opacity="0.25" />
+    <circle cx="1320" cy="163" r="4" fill="#e11d48" fill-opacity="0.3" stroke="none" />
+    <line x1="1320" y1="190" x2="1320" y2="203" />
+
+    <!-- Right Lantern 2 (Smaller, higher) -->
+    <line x1="1230" y1="0" x2="1230" y2="85" stroke-dasharray="3,3" />
+    <polygon points="1230,85 1240,97 1236,120 1230,128 1224,120 1220,97" fill="#fff" fill-opacity="0.6" stroke-opacity="0.2" />
+    <circle cx="1230" cy="107" r="3" fill="#e11d48" fill-opacity="0.25" stroke="none" />
+  </g>
+
+  <!-- Floating Sparkles & Halal Stars -->
+  <g fill="#e11d48" opacity="0.35">
+    <!-- Star 1 -->
+    <path d="M280,140 Q280,150 270,150 Q280,150 280,160 Q280,150 290,150 Q280,150 280,140 Z" />
+    <!-- Star 2 -->
+    <path d="M1160,160 Q1160,170 1150,170 Q1160,170 1160,180 Q1160,170 1170,170 Q1160,170 1160,160 Z" />
+    <!-- Star 3 -->
+    <path d="M380,260 Q380,267 373,267 Q380,267 380,274 Q380,267 387,267 Q380,267 380,260 Z" opacity="0.25" />
+    <!-- Star 4 -->
+    <path d="M1060,280 Q1060,287 1053,287 Q1060,287 1060,294 Q1060,287 1067,287 Q1060,287 1060,280 Z" opacity="0.25" />
+  </g>
+
+  <!-- Bottom Soft Fading Horizon -->
+  <rect y="640" width="1440" height="120" fill="url(#bgGrad)" opacity="0.8" />
+</svg>

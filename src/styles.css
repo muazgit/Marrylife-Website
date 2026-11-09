@@ -28,7 +28,9 @@
  */
 
 @theme inline {
-  --font-sans: "Inter Variable", "Kalpurush", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    "Inter Variable", "Inter", var(--font-solaiman-lipi), "SolaimanLipi", ui-sans-serif, system-ui,
+    sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -81,14 +83,14 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.375rem;
   --background: oklch(0.99 0.004 10);
   --foreground: oklch(0.24 0.03 350);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.24 0.03 350);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.24 0.03 350);
-  --primary: oklch(0.52 0.15 5);
+  --primary: oklch(0.48 0.17 15);
   --primary-foreground: oklch(0.984 0.003 10);
   --secondary: oklch(0.96 0.012 10);
   --secondary-foreground: oklch(0.24 0.03 350);
@@ -108,19 +110,19 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.984 0.003 10);
   --sidebar-foreground: oklch(0.24 0.03 350);
-  --sidebar-primary: oklch(0.52 0.15 5);
+  --sidebar-primary: oklch(0.48 0.17 15);
   --sidebar-primary-foreground: oklch(0.984 0.003 10);
   --sidebar-accent: oklch(0.96 0.012 10);
   --sidebar-accent-foreground: oklch(0.24 0.03 350);
   --sidebar-border: oklch(0.93 0.014 10);
   --sidebar-ring: oklch(0.6 0.13 5);
-  --brand: oklch(0.52 0.15 5);
+  --brand: oklch(0.48 0.17 15);
   --brand-foreground: oklch(0.984 0.003 10);
-  --brand-pink: oklch(0.68 0.17 3);
+  --brand-pink: oklch(0.65 0.22 15);
   --brand-pink-soft: oklch(0.78 0.12 5);
-  --lavender: oklch(0.96 0.02 350);
+  --lavender: oklch(0.975 0.015 15);
   --lavender-deep: oklch(0.93 0.03 350);
-  --footer: oklch(0.28 0.05 350);
+  --footer: oklch(0.18 0.04 15);
   --footer-foreground: oklch(0.93 0.02 350);
   --messenger: oklch(0.62 0.17 245);
 }
@@ -177,11 +179,16 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: "Inter Variable", "Kalpurush", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+    font-family:
+      "Inter Variable", "Kalpurush", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
   }
 }
 
 @utility hero-gradient {
-  background:
-    radial-gradient(120% 90% at 50% 0%, oklch(0.97 0.03 350) 0%, oklch(0.96 0.03 355) 45%, oklch(0.96 0.015 10) 100%);
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    oklch(0.97 0.03 350) 0%,
+    oklch(0.96 0.03 355) 45%,
+    oklch(0.96 0.015 10) 100%
+  );
 }
