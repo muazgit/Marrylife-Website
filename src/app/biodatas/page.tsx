@@ -9,7 +9,7 @@ import { toBengaliNumber } from "@/lib/utils/bengali";
 
 /* ---------- Constants ---------- */
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 6;
 
 /* ---------- Page (Server Component) ---------- */
 
@@ -82,7 +82,7 @@ export default async function BiodatasPage({ searchParams }: PageProps) {
   if (division) activeFilterLabels.push(division);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
 
       {/* Header */}
@@ -119,14 +119,14 @@ export default async function BiodatasPage({ searchParams }: PageProps) {
       {/* Main content: Filters + Grid */}
       <main className="flex-1 py-6 sm:py-8">
         <div className="mx-auto max-w-7xl px-3 sm:px-6">
-          <div className="lg:grid lg:grid-cols-[280px_1fr] lg:gap-6">
+          <div className="lg:grid lg:grid-cols-[280px_1fr] lg:items-start lg:gap-8">
             {/* Filter sidebar */}
             <Suspense fallback={null}>
               <BiodataFilters />
             </Suspense>
 
             {/* Content area */}
-            <div>
+            <div className="min-w-0">
               {error ? (
                 /* Error state */
                 <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
@@ -166,13 +166,11 @@ export default async function BiodatasPage({ searchParams }: PageProps) {
                   </div>
 
                   {/* Pagination */}
-                  {totalPages > 1 && (
-                    <div className="mt-8 sm:mt-10">
-                      <Suspense fallback={null}>
-                        <BiodataPagination currentPage={currentPage} totalPages={totalPages} />
-                      </Suspense>
-                    </div>
-                  )}
+                  <div className="mt-8 sm:mt-10">
+                    <Suspense fallback={null}>
+                      <BiodataPagination currentPage={currentPage} totalPages={totalPages} />
+                    </Suspense>
+                  </div>
                 </>
               )}
             </div>

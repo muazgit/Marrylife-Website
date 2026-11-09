@@ -12,7 +12,7 @@ interface BiodataPaginationProps {
 export function BiodataPagination({ currentPage, totalPages }: BiodataPaginationProps) {
   const searchParams = useSearchParams();
 
-  if (totalPages <= 1) return null;
+  if (totalPages < 1) return null;
 
   /** Build href for a given page number, preserving all other search params. */
   function getPageHref(page: number): string {

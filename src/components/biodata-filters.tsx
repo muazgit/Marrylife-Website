@@ -187,8 +187,8 @@ export function BiodataFilters() {
       </div>
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:block">
-        <div className="sticky top-24 rounded-xl border border-gray-100 dark:border-border/60 bg-card p-5 shadow-xs">
+      <aside className="hidden lg:block sticky top-24 self-start">
+        <div className="rounded-xl border border-gray-100 dark:border-border/60 bg-card p-5 shadow-xs">
           <h3 className="flex items-center gap-2 text-sm font-bold text-foreground mb-4">
             <i className="ri-filter-3-line text-brand text-lg" />
             ফিল্টার করুন
