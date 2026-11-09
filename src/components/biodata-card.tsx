@@ -81,7 +81,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
         <div className="space-y-2 text-xs sm:text-[13px] border-t border-gray-100 dark:border-border/40 pt-3">
           <div className="flex items-center justify-between gap-2">
             <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
-              <i className="ri-calendar-line text-brand/60" /> বয়স
+              <i className="ri-calendar-line text-brand/60" /> বয়স:
             </span>
             <span className="font-semibold text-foreground text-right">
               {toBengaliNumber(age)} বছর
@@ -90,7 +90,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
           <div className="flex items-center justify-between gap-2">
             <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
-              <i className="ri-ruler-line text-brand/60" /> উচ্চতা
+              <i className="ri-ruler-line text-brand/60" /> উচ্চতা:
             </span>
             <span className="font-semibold text-foreground text-right">
               {formatHeight(biodata.height_feet, biodata.height_inches)}
@@ -99,7 +99,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
           <div className="flex items-center justify-between gap-2">
             <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
-              <i className="ri-heart-2-line text-brand/60" /> বৈবাহিক অবস্থা
+              <i className="ri-heart-2-line text-brand/60" /> বৈবাহিক অবস্থা:
             </span>
             <span className="font-semibold text-foreground text-right">
               {MARITAL_STATUS_LABELS[biodata.marital_status] || biodata.marital_status}
@@ -108,7 +108,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
           <div className="flex items-center justify-between gap-2">
             <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
-              <i className="ri-briefcase-line text-brand/60" /> পেশা
+              <i className="ri-briefcase-line text-brand/60" /> পেশা:
             </span>
             <span className="font-semibold text-foreground text-right truncate max-w-[60%]">
               {biodata.occupation}
@@ -117,7 +117,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
           <div className="flex items-center justify-between gap-2">
             <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
-              <i className="ri-graduation-cap-line text-brand/60" /> শিক্ষাগত যোগ্যতা
+              <i className="ri-graduation-cap-line text-brand/60" /> শিক্ষা:
             </span>
             <span className="font-semibold text-foreground text-right truncate max-w-[60%]">
               {biodata.highest_degree}
@@ -126,7 +126,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
           <div className="flex items-center justify-between gap-2">
             <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
-              <i className="ri-map-pin-2-line text-brand/60" /> স্থায়ী ঠিকানা
+              <i className="ri-map-pin-2-line text-brand/60" /> স্থায়ী ঠিকানা:
             </span>
             <span className="font-semibold text-foreground text-right truncate max-w-[60%]">
               {biodata.permanent_district}, {biodata.permanent_division}
