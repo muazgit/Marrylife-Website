@@ -166,9 +166,9 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
         {/* View button */}
         <div className="mt-4 pt-3 border-t border-gray-100 dark:border-border/40">
-          <div className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand/5 py-2 text-xs sm:text-sm font-bold text-brand group-hover:bg-brand group-hover:text-brand-foreground transition-all">
+          <div className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand/5 py-2 text-xs sm:text-sm font-bold text-brand transition-all">
             <span>বিস্তারিত দেখুন</span>
-            <i className="ri-arrow-right-line text-sm group-hover:translate-x-1 transition-transform" />
+            <i className="ri-arrow-right-line text-sm group-hover:translate-x-1.5 transition-transform" />
           </div>
         </div>
       </div>
