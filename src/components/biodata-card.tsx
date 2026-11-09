@@ -77,85 +77,69 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
           </div>
         </div>
 
-        {/* Info grid */}
-        <div className="grid grid-cols-2 gap-x-3 gap-y-2 text-xs sm:text-[13px]">
-          {/* Age */}
-          <div className="flex items-center gap-1.5">
-            <i className="ri-calendar-line text-brand/60 text-sm" />
-            <span className="text-muted-foreground">বয়স:</span>
-            <span className="font-semibold text-foreground">{toBengaliNumber(age)} বছর</span>
+        {/* Meta info list (1 vertical column) */}
+        <div className="space-y-2 text-xs sm:text-[13px] border-t border-gray-100 dark:border-border/40 pt-3">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
+              <i className="ri-calendar-line text-brand/60" /> বয়স
+            </span>
+            <span className="font-semibold text-foreground text-right">
+              {toBengaliNumber(age)} বছর
+            </span>
           </div>
 
-          {/* Height */}
-          <div className="flex items-center gap-1.5">
-            <i className="ri-ruler-line text-brand/60 text-sm" />
-            <span className="text-muted-foreground">উচ্চতা:</span>
-            <span className="font-semibold text-foreground">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
+              <i className="ri-ruler-line text-brand/60" /> উচ্চতা
+            </span>
+            <span className="font-semibold text-foreground text-right">
               {formatHeight(biodata.height_feet, biodata.height_inches)}
             </span>
           </div>
 
-          {/* District */}
-          <div className="flex items-center gap-1.5">
-            <i className="ri-map-pin-2-line text-brand/60 text-sm" />
-            <span className="text-muted-foreground">জেলা:</span>
-            <span className="font-semibold text-foreground truncate">
-              {biodata.permanent_district}
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
+              <i className="ri-heart-2-line text-brand/60" /> বৈবাহিক অবস্থা
             </span>
-          </div>
-
-          {/* Education */}
-          <div className="flex items-center gap-1.5">
-            <i className="ri-graduation-cap-line text-brand/60 text-sm" />
-            <span className="text-muted-foreground">শিক্ষা:</span>
-            <span className="font-semibold text-foreground truncate">{biodata.highest_degree}</span>
-          </div>
-
-          {/* Occupation */}
-          <div className="flex items-center gap-1.5">
-            <i className="ri-briefcase-line text-brand/60 text-sm" />
-            <span className="text-muted-foreground">পেশা:</span>
-            <span className="font-semibold text-foreground truncate">{biodata.occupation}</span>
-          </div>
-
-          {/* Marital Status */}
-          <div className="flex items-center gap-1.5">
-            <i className="ri-heart-2-line text-brand/60 text-sm" />
-            <span className="text-muted-foreground">অবস্থা:</span>
-            <span className="font-semibold text-foreground">
+            <span className="font-semibold text-foreground text-right">
               {MARITAL_STATUS_LABELS[biodata.marital_status] || biodata.marital_status}
             </span>
           </div>
-        </div>
 
-        {/* Deen badges */}
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {biodata.observes_purdah_or_beard && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 text-emerald-700 px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold">
-              <i className="ri-checkbox-circle-fill text-[10px]" />
-              {isGroom ? "দাড়ি রাখেন" : "পর্দানশীন"}
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
+              <i className="ri-briefcase-line text-brand/60" /> পেশা
             </span>
-          )}
-          {biodata.prayer_frequency === "five_times" && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-brand/10 text-brand px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold">
-              <i className="ri-checkbox-circle-fill text-[10px]" />
-              পাঁচ ওয়াক্ত সালাত
+            <span className="font-semibold text-foreground text-right truncate max-w-[60%]">
+              {biodata.occupation}
             </span>
-          )}
-          {biodata.mahram_non_mahram_care && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px] sm:text-[11px] font-semibold">
-              <i className="ri-checkbox-circle-fill text-[10px]" />
-              মাহরাম মেনে চলেন
+          </div>
+
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
+              <i className="ri-graduation-cap-line text-brand/60" /> শিক্ষাগত যোগ্যতা
             </span>
-          )}
+            <span className="font-semibold text-foreground text-right truncate max-w-[60%]">
+              {biodata.highest_degree}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-muted-foreground flex items-center gap-1.5 shrink-0">
+              <i className="ri-map-pin-2-line text-brand/60" /> স্থায়ী ঠিকানা
+            </span>
+            <span className="font-semibold text-foreground text-right truncate max-w-[60%]">
+              {biodata.permanent_district}, {biodata.permanent_division}
+            </span>
+          </div>
         </div>
 
         {/* View button */}
         <div className="mt-4 pt-3 border-t border-gray-100 dark:border-border/40">
-          <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-brand group-hover:text-brand-pink transition-colors">
-            বিস্তারিত দেখুন
+          <div className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand/5 py-2 text-xs sm:text-sm font-bold text-brand group-hover:bg-brand group-hover:text-brand-foreground transition-all">
+            <span>বিস্তারিত দেখুন</span>
             <i className="ri-arrow-right-line text-sm group-hover:translate-x-1 transition-transform" />
-          </span>
+          </div>
         </div>
       </div>
     </Link>
