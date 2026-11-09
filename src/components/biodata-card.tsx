@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { toBengaliNumber, getAge, formatHeight } from "@/lib/utils/bengali";
@@ -26,6 +29,7 @@ interface BiodataCardProps {
 }
 
 export function BiodataCard({ biodata }: BiodataCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
   const age = getAge(biodata.birth_year);
   const biodataNumber = `ML-${toBengaliNumber(biodata.biodata_number)}`;
   const isGroom = biodata.gender === "groom";
@@ -39,7 +43,7 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
       <div className={`h-1.5 w-full ${isGroom ? "bg-sky-500" : "bg-pink-500"}`} />
 
       <div className="p-4 sm:p-5">
-        {/* Header row: avatar + biodata number + gender badge */}
+        {/* Header row: avatar + gender badge / wishlist + biodata number */}
         <div className="flex items-center gap-3.5 mb-3.5">
           <div
             className={`relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 rounded-full p-0.5 border-2 ${
@@ -59,16 +63,45 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between gap-1 mb-1">
-              <span className="text-[11px] sm:text-xs font-bold text-muted-foreground tracking-wide">
-                বায়োডাটা নং
-              </span>
+              {/* Gender badge replacing 'বায়োডাটা নং' */}
               <span
-                className={`shrink-0 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] sm:text-[11px] font-bold ${
+                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] sm:text-[11px] font-bold ${
                   isGroom ? "bg-sky-500/10 text-sky-700" : "bg-pink-500/10 text-pink-700"
                 }`}
               >
                 <i className={`${isGroom ? "ri-user-star-line" : "ri-user-heart-line"} text-xs`} />
                 {GENDER_LABELS[biodata.gender] || biodata.gender}
+              </span>
+
+              {/* Wishlist icon replacing the badge location */}
+              <span
+                role="button"
+                tabIndex={0}
+                title={isFavorite ? "পছন্দের তালিকা থেকে বাদ দিন" : "পছন্দের তালিকায় যোগ করুন"}
+                aria-label="Wishlist"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setIsFavorite((prev) => !prev);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsFavorite((prev) => !prev);
+                  }
+                }}
+                className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                  isFavorite
+                    ? "text-rose-500 bg-rose-50 dark:bg-rose-950/40 shadow-2xs"
+                    : "text-muted-foreground/60 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                }`}
+              >
+                <i
+                  className={`${
+                    isFavorite ? "ri-heart-fill scale-110" : "ri-heart-line"
+                  } text-base sm:text-lg transition-transform`}
+                />
               </span>
             </div>
             <h3 className="text-base sm:text-lg font-extrabold text-brand leading-tight">
