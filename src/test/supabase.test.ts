@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import { createClient } from "@supabase/supabase-js";
 import fs from "node:fs";
 import path from "node:path";
-import { PUBLIC_BIODATA_CARD_COLUMNS } from "@/components/biodata-card";
+
+const PUBLIC_BIODATA_CARD_COLUMNS =
+  "id, biodata_number, gender, marital_status, birth_year, height_feet, height_inches, occupation, highest_degree, permanent_district, permanent_division";
 
 function getSupabaseCredentials() {
   let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -23,7 +25,7 @@ function getSupabaseCredentials() {
 }
 
 describe("Live Supabase Integration & RLS Security", () => {
-  it("reads public biodata card columns and enforces RLS on private tables", async () => {
+  it("reads public biodata card columns and enforces RLS on private tables and columns", async () => {
     const { supabaseUrl, supabaseKey } = getSupabaseCredentials();
     if (!supabaseUrl || !supabaseKey || supabaseUrl.includes("example.supabase.co")) {
       return;

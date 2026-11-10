@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/navbar";
-import { BiodataCard, PUBLIC_BIODATA_CARD_COLUMNS } from "@/components/biodata-card";
+import { BiodataCard } from "@/components/biodata-card";
 import { BiodataFilters } from "@/components/biodata-filters";
 import { BiodataPagination } from "@/components/biodata-pagination";
 import { toBengaliNumber } from "@/lib/utils/bengali";
@@ -10,6 +10,9 @@ import { toBengaliNumber } from "@/lib/utils/bengali";
 /* ---------- Constants ---------- */
 
 const PAGE_SIZE = 6;
+
+const PUBLIC_BIODATA_CARD_COLUMNS =
+  "id, biodata_number, gender, marital_status, birth_year, height_feet, height_inches, occupation, highest_degree, permanent_district, permanent_division" as const;
 
 const ALLOWED_DIVISIONS = new Set([
   "ঢাকা",

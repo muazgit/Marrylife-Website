@@ -6,9 +6,6 @@ import Image from "next/image";
 import { toBengaliNumber, getAge, formatHeight } from "@/lib/utils/bengali";
 import type { Tables } from "@/types/database.types";
 
-export const PUBLIC_BIODATA_CARD_COLUMNS =
-  "id, biodata_number, gender, marital_status, birth_year, height_feet, height_inches, occupation, highest_degree, permanent_district, permanent_division" as const;
-
 export type BiodataCardSummary = Pick<
   Tables<"biodatas">,
   | "id"

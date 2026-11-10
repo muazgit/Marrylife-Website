@@ -236,7 +236,17 @@ create policy "Users can update their own biodata"
   with check (auth.uid() = user_id or public.is_staff());
 
 -- Column-level privilege hardening: prevent anonymous API callers from reading internal columns
-revoke select (user_id, rejection_reason) on public.biodatas from anon;
+revoke select on public.biodatas from anon;
+grant select (
+  id, biodata_number, gender, marital_status, birth_year, height_feet, height_inches,
+  weight_kg, complexion, blood_group, prayer_frequency, observes_purdah_or_beard,
+  mahram_non_mahram_care, quran_recitation_ability, religious_sect, education_medium,
+  highest_degree, occupation, division, district, upazila, permanent_division,
+  permanent_district, permanent_upazila, father_occupation, mother_occupation,
+  brothers_count, sisters_count, financial_status, expected_partner_age_min,
+  expected_partner_age_max, expected_partner_height_min, expected_partner_district,
+  expected_partner_qualities, status, approved_at, created_at, updated_at
+) on public.biodatas to anon;
 
 -- BIODATA_CONTACTS: Strictly protected guardian & candidate PII
 drop policy if exists "Protected contact access" on public.biodata_contacts;
