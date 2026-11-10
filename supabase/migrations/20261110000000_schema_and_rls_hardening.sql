@@ -235,8 +235,8 @@ create policy "Users can update their own biodata"
   using (auth.uid() = user_id or public.is_staff())
   with check (auth.uid() = user_id or public.is_staff());
 
--- Column-level privilege hardening: prevent anonymous API callers from reading internal columns
-revoke select on public.biodatas from anon;
+-- Column-level privilege hardening: prevent anonymous and regular authenticated API callers from reading internal columns
+revoke select on public.biodatas from anon, authenticated;
 grant select (
   id, biodata_number, gender, marital_status, birth_year, height_feet, height_inches,
   weight_kg, complexion, blood_group, prayer_frequency, observes_purdah_or_beard,
@@ -246,7 +246,55 @@ grant select (
   brothers_count, sisters_count, financial_status, expected_partner_age_min,
   expected_partner_age_max, expected_partner_height_min, expected_partner_district,
   expected_partner_qualities, status, approved_at, created_at, updated_at
-) on public.biodatas to anon;
+) on public.biodatas to anon, authenticated;
+
+-- Prevent privilege escalation on profiles (role, credits, is_verified)
+create or replace function public.protect_profile_sensitive_columns()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if current_user not in ('postgres', 'service_role') and not public.is_staff() then
+    new.role := old.role;
+    new.credits := old.credits;
+    new.is_verified := old.is_verified;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_protect_profile_sensitive_columns on public.profiles;
+create trigger trg_protect_profile_sensitive_columns
+  before update on public.profiles
+  for each row execute procedure public.protect_profile_sensitive_columns();
+
+-- Prevent self-approval on biodatas
+create or replace function public.protect_biodata_moderation_columns()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if current_user not in ('postgres', 'service_role') and not public.is_staff() then
+    new.user_id := old.user_id;
+    new.biodata_number := old.biodata_number;
+    new.approved_at := old.approved_at;
+    new.rejection_reason := old.rejection_reason;
+    if new.status not in ('draft', 'pending_approval', 'hidden') then
+      new.status := 'pending_approval';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_protect_biodata_moderation_columns on public.biodatas;
+create trigger trg_protect_biodata_moderation_columns
+  before update on public.biodatas
+  for each row execute procedure public.protect_biodata_moderation_columns();
 
 -- BIODATA_CONTACTS: Strictly protected guardian & candidate PII
 drop policy if exists "Protected contact access" on public.biodata_contacts;

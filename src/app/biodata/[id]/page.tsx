@@ -22,6 +22,12 @@ const MARITAL_STATUS_LABELS: Record<string, string> = {
   separated: "বিচ্ছিন্ন",
 };
 
+const PRAYER_FREQUENCY_LABELS: Record<string, string> = {
+  five_times: "হ্যাঁ, নিয়মিত ৫ ওয়াক্ত",
+  regular: "হ্যাঁ, নিয়মিত ৫ ওয়াক্ত",
+  sometimes: "মাঝে মাঝে কাজা হয়",
+};
+
 interface PageProps {
   params: Promise<{ id: string }>;
 }
@@ -211,7 +217,12 @@ export default async function BiodataDetailPage({ params }: PageProps) {
               </SectionCard>
 
               <SectionCard icon="ri-moon-clear-line" title="ব্যক্তিগত ও দ্বীনি তথ্য">
-                <InfoRow label="পাঁচ ওয়াক্ত নামাজ পড়েন কি?" value={biodata.prayer_frequency} />
+                <InfoRow
+                  label="পাঁচ ওয়াক্ত নামাজ পড়েন কি?"
+                  value={
+                    PRAYER_FREQUENCY_LABELS[biodata.prayer_frequency] || biodata.prayer_frequency
+                  }
+                />
                 <InfoRow
                   label={isGroom ? "সুন্নতি দাড়ি আছে কি?" : "শরীয়াহসম্মত পর্দা করেন কি?"}
                   value={biodata.observes_purdah_or_beard ? "হ্যাঁ, আলহামদুলিল্লাহ" : "চেষ্টাধীন"}
