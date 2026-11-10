@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/navbar";
-import { BiodataCard } from "@/components/biodata-card";
+import { BiodataCard, PUBLIC_BIODATA_CARD_COLUMNS } from "@/components/biodata-card";
 import { BiodataFilters } from "@/components/biodata-filters";
 import { BiodataPagination } from "@/components/biodata-pagination";
 import { toBengaliNumber } from "@/lib/utils/bengali";
@@ -10,6 +10,17 @@ import { toBengaliNumber } from "@/lib/utils/bengali";
 /* ---------- Constants ---------- */
 
 const PAGE_SIZE = 6;
+
+const ALLOWED_DIVISIONS = new Set([
+  "ঢাকা",
+  "চট্টগ্রাম",
+  "রাজশাহী",
+  "খুলনা",
+  "বরিশাল",
+  "সিলেট",
+  "রংপুর",
+  "ময়মনসিংহ",
+]);
 
 /* ---------- Page (Server Component) ---------- */
 
@@ -32,20 +43,21 @@ export default async function BiodatasPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const gender = params.gender || undefined;
   const maritalStatus = params.marital_status || undefined;
-  const division = params.division || undefined;
-  const currentPage = Math.max(1, parseInt(params.page || "1", 10));
+  const division =
+    params.division && ALLOWED_DIVISIONS.has(params.division) ? params.division : undefined;
+  const parsedPage = Number.parseInt(params.page || "1", 10);
+  const currentPage = Number.isFinite(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
-  /* ---- Fetch from Supabase ---- */
+  /* ---- Fetch from Supabase (Explicit public card columns only) ---- */
   const supabase = await createClient();
 
-  // Build query for approved biodatas only
   let query = supabase
     .from("biodatas")
-    .select("*", { count: "exact" })
+    .select(PUBLIC_BIODATA_CARD_COLUMNS, { count: "exact" })
     .eq("status", "approved")
     .order("created_at", { ascending: false });
 
-  // Apply filters
+  // Apply validated filters
   if (gender === "groom" || gender === "bride") {
     query = query.eq("gender", gender);
   }
@@ -78,7 +90,9 @@ export default async function BiodatasPage({ searchParams }: PageProps) {
   };
 
   const activeFilterLabels: string[] = [];
-  if (gender) activeFilterLabels.push(GENDER_LABELS[gender] || gender);
+  if (gender === "groom" || gender === "bride") {
+    activeFilterLabels.push(GENDER_LABELS[gender] || gender);
+  }
   if (division) activeFilterLabels.push(division);
 
   return (
@@ -138,7 +152,7 @@ export default async function BiodatasPage({ searchParams }: PageProps) {
                 </div>
               ) : !biodatas || biodatas.length === 0 ? (
                 /* Empty state */
-                <div className="rounded-xl border border-gray-100 dark:border-border/60 bg-card p-10 sm:p-16 text-center shadow-xs">
+                <div className="rounded-xl border border-gray-100 bg-card p-10 sm:p-16 text-center shadow-xs">
                   <div className="mx-auto mb-4 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-brand/10">
                     <i className="ri-search-eye-line text-3xl sm:text-4xl text-brand" />
                   </div>

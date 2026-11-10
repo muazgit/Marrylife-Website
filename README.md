@@ -1,69 +1,47 @@
 # MarryLife (দ্বীনদার জীবনসঙ্গী খোঁজার বিশ্বস্ত প্ল্যাটফর্ম)
 
-MarryLife is a modern Islamic matrimony platform built with **Next.js (App Router)**, **React 19**, **Tailwind CSS**, and **TypeScript**.
+MarryLife is a Shariah-compliant Islamic matrimony platform built with **Next.js 16 (App Router + Turbopack)**, **React 19**, **Supabase (PostgreSQL + Row-Level Security)**, **Tailwind CSS v4**, and **TypeScript**.
 
-## Features
+## Key Features
 
-- **Islamic Matrimony Matching**: Search and create biodatas with custom filters (location, marital status, profession, education).
-- **Fast and Modern**: Built with Next.js App Router and Turbopack for optimal speed and SEO.
-- **Accessible UI**: Styled with Tailwind CSS, Radix UI primitives, Lucide icons, and Kalpurush Bengali typography.
-- **Mobile Responsive**: Fully responsive layout optimized for all device sizes.
+- **Shariah-Compliant Privacy**: No public candidate photos (uses halal vector silhouettes) and guardian-first contact workflow.
+- **Zero-Trust Database Security**: Strict Row-Level Security (RLS) and column-level privileges ensure `profiles`, `biodata_contacts`, and internal fields (`user_id`, `rejection_reason`) are never exposed publicly.
+- **Faceted Search & Bengali Pagination**: Server-rendered `/biodatas` directory with filters for gender, marital status, and division, plus pure Bengali numerals (`১, ২, ৩...`).
+- **Detailed Biodata View (`/biodata/[id]`)**: Complete structured profile view with address, education, family, deen practice, and partner expectations.
+- **Authentic Bengali Typography**: Local `SolaimanLipi` (`woff2`) paired with `Inter Variable`.
 
 ## Getting Started
 
-### Prerequisites
+### 1. Clone & Install
 
-- Node.js 20+
-- npm
+```bash
+git clone https://github.com/muazgit/Marrylife-Website.git
+cd Marrylife-Website
+npm install
+```
 
-### Installation
+### 2. Configure Environment Variables
 
-1. Clone repository:
+Copy `.env.example` to `.env.local` and fill in your Supabase project credentials:
 
-   ```bash
-   git clone https://github.com/muazgit/Marrylife-Website.git
-   cd Marrylife-Website
-   ```
+```bash
+cp .env.example .env.local
+```
 
-2. Install dependencies:
+### 3. Database Schema & RLS Migration
 
-   ```bash
-   npm install
-   ```
+Apply the SQL migration in [`supabase/migrations/20261110000000_schema_and_rls_hardening.sql`](supabase/migrations/20261110000000_schema_and_rls_hardening.sql) via the Supabase SQL Editor or CLI.
 
-3. Run development server:
+### 4. Run Development Server
 
-   ```bash
-   npm run dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+```bash
+npm run dev
+```
 
 ## Available Scripts
 
-- `npm run dev`: Starts the Next.js development server with Turbopack.
-- `npm run build`: Creates an optimized production build.
-- `npm run start`: Runs the production server.
-- `npm run lint`: Checks for linting errors with ESLint.
-- `npm run format`: Formats code with Prettier.
-- `npm test`: Runs Vitest test suite.
-
-## Project Structure
-
-```
-├── public/                 # Static public assets
-├── src/
-│   ├── app/                # Next.js App Router (pages and layouts)
-│   │   ├── layout.tsx      # Root layout & global metadata
-│   │   └── page.tsx        # Homepage landing page
-│   ├── assets/             # Images and local fonts (Kalpurush)
-│   ├── components/         # Reusable UI components & primitives
-│   │   └── ui/             # Radix UI components
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Utility functions
-│   ├── test/               # Vitest test setup and test specs
-│   └── styles.css          # Global Tailwind styles and design tokens
-├── next.config.ts          # Next.js configuration
-├── tsconfig.json           # TypeScript configuration
-└── package.json            # Project manifest & dependencies
-```
+- `npm run dev` — Start local development server
+- `npm run build` — Production build with Next.js 16 Turbopack
+- `npm run lint` — Run ESLint + Prettier checks
+- `npm run format` — Format all files with Prettier
+- `npm test` — Run Vitest unit & integration test suite

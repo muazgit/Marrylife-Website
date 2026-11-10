@@ -3,9 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 // Read environment variables from .env.local
-const envPath = path.resolve(
-  "C:/Users/muazb/Documents/Codex/2026-11-08/https-github-com-muazgit-marrylife-website/Marrylife-Website/.env.local"
-);
+const envPath = path.resolve(__dirname, "..", ".env.local");
 const envContent = fs.readFileSync(envPath, "utf8");
 const supabaseUrl = envContent.match(/NEXT_PUBLIC_SUPABASE_URL=(.*)/)[1].trim();
 const serviceRoleKey = envContent.match(/SUPABASE_SERVICE_ROLE_KEY=(.*)/)[1].trim();
@@ -44,7 +42,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "পাঁচ ওয়াক্ত সালাত আদায়কারী, সুন্নতি দাড়িধারী, হালাল উপার্জনকারী ও মার্জিত চরিত্রের অধিকারী দ্বীনদার পাত্র।",
+    expected_partner_qualities:
+      "পাঁচ ওয়াক্ত সালাত আদায়কারী, সুন্নতি দাড়িধারী, হালাল উপার্জনকারী ও মার্জিত চরিত্রের অধিকারী দ্বীনদার পাত্র।",
     contact: {
       candidate_name: "আয়েশা সিদ্দিকা",
       candidate_phone: "01711000002",
@@ -85,7 +84,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "দ্বীনদার, পূর্ণ পর্দানশীন, নম্র ও পারিবারিক মূল্যবোধ সম্পন্ন পাত্রী। দ্বীনি শিক্ষায় আগ্রহী হলে অগ্রাধিকার।",
+    expected_partner_qualities:
+      "দ্বীনদার, পূর্ণ পর্দানশীন, নম্র ও পারিবারিক মূল্যবোধ সম্পন্ন পাত্রী। দ্বীনি শিক্ষায় আগ্রহী হলে অগ্রাধিকার।",
     contact: {
       candidate_name: "ডা. তানভীর আহমেদ",
       candidate_phone: "01811000003",
@@ -126,7 +126,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "আলিম অথবা দ্বীনদার প্র্যাকটিসিং মুসলিম, যিনি সুন্নতি জীবনযাপনে অভ্যস্ত এবং হালাল রুজি অন্বেষণকারী।",
+    expected_partner_qualities:
+      "আলিম অথবা দ্বীনদার প্র্যাকটিসিং মুসলিম, যিনি সুন্নতি জীবনযাপনে অভ্যস্ত এবং হালাল রুজি অন্বেষণকারী।",
     contact: {
       candidate_name: "ফাতেমা খাতুন",
       candidate_phone: "01911000004",
@@ -167,7 +168,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "দ্বীনদার, পর্দানশীন, অন্তত স্নাতক পাস এবং যৌথ পরিবারে মানিয়ে নেওয়ার মানসিকতা সম্পন্ন পাত্রী।",
+    expected_partner_qualities:
+      "দ্বীনদার, পর্দানশীন, অন্তত স্নাতক পাস এবং যৌথ পরিবারে মানিয়ে নেওয়ার মানসিকতা সম্পন্ন পাত্রী।",
     contact: {
       candidate_name: "মুহাম্মদ জুবায়ের হাসান",
       candidate_phone: "01712000005",
@@ -208,7 +210,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "পরহেযগার, সহমর্মী, পূর্বের বৈবাহিক ইতিহাসকে সম্মান জানানো সৎ ও চরিত্রবান মুসলিম পাত্র। কোনো সন্তান নেই।",
+    expected_partner_qualities:
+      "পরহেযগার, সহমর্মী, পূর্বের বৈবাহিক ইতিহাসকে সম্মান জানানো সৎ ও চরিত্রবান মুসলিম পাত্র। কোনো সন্তান নেই।",
     contact: {
       candidate_name: "নুসরাত জাহান",
       candidate_phone: "01812000006",
@@ -249,7 +252,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "দ্বীনদার, পর্দা পালনকারী, বিনয়ী ও কুরআন-সুন্নাহর অনুসারী পরিবারের পাত্রী।",
+    expected_partner_qualities:
+      "দ্বীনদার, পর্দা পালনকারী, বিনয়ী ও কুরআন-সুন্নাহর অনুসারী পরিবারের পাত্রী।",
     contact: {
       candidate_name: "আব্দুল্লাহ আল মামুন",
       candidate_phone: "01912000007",
@@ -290,7 +294,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "সুশিক্ষিত, নম্রভাষী, দ্বীন পালনে আন্তরিক ও দায়িত্বশীল মানসিকতার পাত্র।",
+    expected_partner_qualities:
+      "সুশিক্ষিত, নম্রভাষী, দ্বীন পালনে আন্তরিক ও দায়িত্বশীল মানসিকতার পাত্র।",
     contact: {
       candidate_name: "সাদিয়া আফরিন",
       candidate_phone: "01713000008",
@@ -331,7 +336,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "দ্বীনদার, সহমর্মী, পরহেযগার পাত্রী যিনি নতুন করে একটি সুন্নতি পরিবার গড়তে আগ্রহী। ১টি ছোট সন্তান রয়েছে।",
+    expected_partner_qualities:
+      "দ্বীনদার, সহমর্মী, পরহেযগার পাত্রী যিনি নতুন করে একটি সুন্নতি পরিবার গড়তে আগ্রহী। ১টি ছোট সন্তান রয়েছে।",
     contact: {
       candidate_name: "মুহাম্মদ মিজানুর রহমান",
       candidate_phone: "01813000009",
@@ -372,7 +378,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "পাঁচ ওয়াক্ত সালাতি, হালাল উপার্জনে সন্তুষ্ট, ধূমপানমুক্ত চরিত্রবান দ্বীনদার পাত্র।",
+    expected_partner_qualities:
+      "পাঁচ ওয়াক্ত সালাতি, হালাল উপার্জনে সন্তুষ্ট, ধূমপানমুক্ত চরিত্রবান দ্বীনদার পাত্র।",
     contact: {
       candidate_name: "হালিমা সাদিয়া",
       candidate_phone: "01913000010",
@@ -413,7 +420,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "দ্বীনদার, পর্দানশীন আলেমা অথবা দ্বীন পালনে অত্যন্ত আগ্রহী এমন সুশিক্ষিত পরিবারের পাত্রী।",
+    expected_partner_qualities:
+      "দ্বীনদার, পর্দানশীন আলেমা অথবা দ্বীন পালনে অত্যন্ত আগ্রহী এমন সুশিক্ষিত পরিবারের পাত্রী।",
     contact: {
       candidate_name: "মুফতি সালমান ফারসি",
       candidate_phone: "01714000011",
@@ -454,7 +462,8 @@ const SEED_DATA = [
     observes_purdah_or_beard: true,
     mahram_non_mahram_care: true,
     religious_sect: "আহলে সুন্নাত ওয়াল জামাআত",
-    expected_partner_qualities: "উচ্চশিক্ষিত, পরহেযগার, দায়িত্বশীল ও সৃজনশীল মানসিকতার দ্বীনদার পাত্র।",
+    expected_partner_qualities:
+      "উচ্চশিক্ষিত, পরহেযগার, দায়িত্বশীল ও সৃজনশীল মানসিকতার দ্বীনদার পাত্র।",
     contact: {
       candidate_name: "সুমাইয়া বিনতে হক",
       candidate_phone: "01814000012",
@@ -512,7 +521,7 @@ async function seed() {
     } else {
       successCount++;
       console.log(
-        `✓ Inserted Biodata ML-${insertedBiodata.biodata_number} (${insertedBiodata.gender}, ${insertedBiodata.permanent_division})`
+        `✓ Inserted Biodata ML-${insertedBiodata.biodata_number} (${insertedBiodata.gender}, ${insertedBiodata.permanent_division})`,
       );
     }
   }

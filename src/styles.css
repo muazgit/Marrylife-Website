@@ -3,29 +3,7 @@
 @import "tw-animate-css";
 @import "@fontsource-variable/inter";
 
-@font-face {
-  font-family: "Kalpurush";
-  src: url("@/assets/fonts/Kalpurush.ttf") format("truetype");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 @custom-variant dark (&:is(.dark *));
-
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
 
 @theme inline {
   --font-sans:
@@ -127,50 +105,6 @@
   --messenger: oklch(0.62 0.17 245);
 }
 
-.dark {
-  --background: oklch(0.14 0.02 350);
-  --foreground: oklch(0.984 0.003 10);
-  --card: oklch(0.2 0.025 350);
-  --card-foreground: oklch(0.984 0.003 10);
-  --popover: oklch(0.2 0.025 350);
-  --popover-foreground: oklch(0.984 0.003 10);
-  --primary: oklch(0.72 0.13 5);
-  --primary-foreground: oklch(0.15 0.03 350);
-  --secondary: oklch(0.28 0.025 350);
-  --secondary-foreground: oklch(0.984 0.003 10);
-  --muted: oklch(0.28 0.025 350);
-  --muted-foreground: oklch(0.7 0.03 350);
-  --accent: oklch(0.28 0.025 350);
-  --accent-foreground: oklch(0.984 0.003 10);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 10);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.55 0.08 5);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 5);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.2 0.025 350);
-  --sidebar-foreground: oklch(0.984 0.003 10);
-  --sidebar-primary: oklch(0.488 0.12 5);
-  --sidebar-primary-foreground: oklch(0.984 0.003 10);
-  --sidebar-accent: oklch(0.28 0.025 350);
-  --sidebar-accent-foreground: oklch(0.984 0.003 10);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.55 0.08 5);
-  --brand: oklch(0.72 0.13 5);
-  --brand-foreground: oklch(0.15 0.03 350);
-  --brand-pink: oklch(0.78 0.13 5);
-  --brand-pink-soft: oklch(0.82 0.1 5);
-  --lavender: oklch(0.28 0.03 350);
-  --lavender-deep: oklch(0.32 0.04 350);
-  --footer: oklch(0.18 0.03 350);
-  --footer-foreground: oklch(0.93 0.02 350);
-  --messenger: oklch(0.62 0.17 245);
-}
-
 @layer base {
   * {
     border-color: var(--color-border);
@@ -179,8 +113,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family:
-      "Inter Variable", "Kalpurush", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
   }
 }
 

@@ -145,6 +145,7 @@ export function BiodataFilters() {
       {/* Clear button */}
       {hasFilters && (
         <button
+          type="button"
           onClick={clearAll}
           className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2.5 text-xs sm:text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
         >
@@ -160,7 +161,9 @@ export function BiodataFilters() {
       {/* Mobile filter toggle button */}
       <div className="lg:hidden mb-4">
         <button
+          type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
+          aria-expanded={mobileOpen}
           className="w-full inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-card px-4 py-3 text-sm font-bold text-foreground shadow-xs hover:bg-muted transition-colors cursor-pointer"
         >
           <i className="ri-filter-3-line text-brand text-lg" />
@@ -180,7 +183,7 @@ export function BiodataFilters() {
 
         {/* Mobile filter drawer */}
         {mobileOpen && (
-          <div className="mt-3 rounded-xl border border-gray-100 dark:border-border/60 bg-card p-4 shadow-sm animate-in slide-in-from-top-2 duration-200">
+          <div className="mt-3 rounded-xl border border-gray-100 bg-card p-4 shadow-sm animate-in slide-in-from-top-2 duration-200">
             {filterContent}
           </div>
         )}
@@ -188,7 +191,7 @@ export function BiodataFilters() {
 
       {/* Desktop sidebar */}
       <aside className="hidden lg:block sticky top-24 self-start">
-        <div className="rounded-xl border border-gray-100 dark:border-border/60 bg-card p-5 shadow-xs">
+        <div className="rounded-xl border border-gray-100 bg-card p-5 shadow-xs">
           <h3 className="flex items-center gap-2 text-sm font-bold text-foreground mb-4">
             <i className="ri-filter-3-line text-brand text-lg" />
             ফিল্টার করুন
