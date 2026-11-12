@@ -10,6 +10,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 export function HeartMark({ className }: { className?: string }) {
   return (
@@ -77,9 +79,28 @@ const SERVICES = [
 export function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : Boolean(pathname?.startsWith(href));
+
+  // Check auth state on client
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
 
   // Close menu on ESC key press
   useEffect(() => {
@@ -155,7 +176,7 @@ export function Navbar() {
             </DropdownMenu>
           </nav>
 
-          {/* Actions: Language, Login & Mobile Trigger */}
+          {/* Actions: Language, Login/Dashboard & Mobile Trigger */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
@@ -164,14 +185,24 @@ export function Navbar() {
               <Globe className="h-4 w-4" /> ENG
             </button>
 
-            <Link
-              href="/login"
-              className="rounded-lg bg-brand px-3.5 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-brand-foreground shadow-sm transition-all hover:bg-brand/90 hover:shadow active:scale-95"
-            >
-              লগইন
-            </Link>
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-brand-foreground shadow-sm transition-all hover:bg-brand/90 hover:shadow active:scale-95"
+              >
+                <i className="ri-dashboard-line text-sm" />
+                <span>ড্যাশবোর্ড</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="rounded-lg bg-brand px-3.5 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold text-brand-foreground shadow-sm transition-all hover:bg-brand/90 hover:shadow active:scale-95"
+              >
+                লগইন
+              </Link>
+            )}
 
-            {/* Mobile Menu Toggle Button (No border, no bg) */}
+            {/* Mobile Menu Toggle Button */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -188,13 +219,40 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Dropdown Navigation (Rendered inside header) */}
+        {/* Mobile Dropdown Navigation */}
         {mobileMenuOpen && (
           <div
             id="mobile-drawer"
             className="border-t border-border/60 bg-card px-4 pt-3 pb-6 shadow-2xl lg:hidden animate-in slide-in-from-top-2 duration-200 max-h-[calc(100vh-4rem)] overflow-y-auto"
           >
             <div className="flex flex-col space-y-3 max-w-lg mx-auto">
+              {/* User logged in status banner in drawer */}
+              {user ? (
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between rounded-lg bg-brand/10 p-3 text-sm font-bold text-brand transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <i className="ri-user-star-line text-base text-brand-pink" />
+                    <span>আমার ড্যাশবোর্ড ({user.user_metadata?.full_name || "প্রোফাইল"})</span>
+                  </span>
+                  <i className="ri-arrow-right-s-line text-brand text-base" />
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between rounded-lg bg-brand/10 p-3 text-sm font-bold text-brand transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <i className="ri-login-box-line text-base text-brand-pink" />
+                    <span>অ্যাকাউন্টে লগইন করুন</span>
+                  </span>
+                  <i className="ri-arrow-right-s-line text-brand text-base" />
+                </Link>
+              )}
+
               {/* Navigation links */}
               <div className="space-y-1">
                 {NAV_LINKS.map((link) => {
