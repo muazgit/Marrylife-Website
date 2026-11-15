@@ -94,6 +94,12 @@ export default async function DashboardPage() {
   const credits = profile?.credits ?? 5;
   const fullName = profile?.full_name || user.user_metadata?.full_name || "সম্মানিত ব্যবহারকারী";
 
+  // Fetch shortlist count
+  const { count: shortlistCount } = await supabase
+    .from("shortlists")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.id);
+
   // Fetch proposals (Sent & Received)
   const { data: sentRequests } = await supabase
     .from("contact_requests")
@@ -202,19 +208,19 @@ export default async function DashboardPage() {
       <main className="flex-1 py-8 sm:py-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 space-y-7">
           {/* Stats & Credit Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {/* Credits Card */}
-            <div className="rounded-xl border border-gray-100 bg-card p-5 sm:p-6 shadow-xs flex items-center justify-between">
+            <div className="rounded-xl border border-gray-100 bg-card p-5 shadow-xs flex items-center justify-between">
               <div>
                 <span className="text-xs font-semibold text-muted-foreground block mb-1">
                   অবশিষ্ট যোগাযোগের ক্রেডিট
                 </span>
-                <div className="text-2xl sm:text-3xl font-extrabold text-brand">
+                <div className="text-2xl font-extrabold text-brand">
                   {toBengaliNumber(credits)}{" "}
                   <span className="text-sm font-normal text-muted-foreground">টি</span>
                 </div>
                 <p className="text-[11px] text-muted-foreground mt-1">
-                  অভিভাবকের নম্বর দেখার জন্য ব্যবহৃত হয়
+                  অভিভাবকের নম্বর দেখার জন্য ব্যবহৃত
                 </p>
               </div>
               <div className="h-12 w-12 rounded-full bg-brand/10 text-brand flex items-center justify-center shrink-0">
@@ -223,12 +229,12 @@ export default async function DashboardPage() {
             </div>
 
             {/* Biodata Status Card */}
-            <div className="rounded-xl border border-gray-100 bg-card p-5 sm:p-6 shadow-xs flex items-center justify-between">
+            <div className="rounded-xl border border-gray-100 bg-card p-5 shadow-xs flex items-center justify-between">
               <div>
                 <span className="text-xs font-semibold text-muted-foreground block mb-1">
                   বায়োডাটার অবস্থা
                 </span>
-                <div className="text-lg sm:text-xl font-bold text-foreground">
+                <div className="text-base sm:text-lg font-bold text-foreground">
                   {primaryBiodata
                     ? BIODATA_STATUS_LABELS[primaryBiodata.status]?.label || primaryBiodata.status
                     : "তৈরি করা হয়নি"}
@@ -244,13 +250,36 @@ export default async function DashboardPage() {
               </div>
             </div>
 
+            {/* Shortlist Card */}
+            <div className="rounded-xl border border-gray-100 bg-card p-5 shadow-xs flex items-center justify-between">
+              <div>
+                <span className="text-xs font-semibold text-muted-foreground block mb-1">
+                  পছন্দের শর্টলিস্ট
+                </span>
+                <div className="text-2xl font-extrabold text-rose-600">
+                  {toBengaliNumber(shortlistCount ?? 0)}{" "}
+                  <span className="text-sm font-normal text-muted-foreground">টি</span>
+                </div>
+                <Link
+                  href="/shortlist"
+                  className="inline-flex items-center gap-1 text-[11px] font-bold text-brand hover:underline mt-1"
+                >
+                  <span>শর্টলিস্ট দেখুন</span>
+                  <i className="ri-arrow-right-line" />
+                </Link>
+              </div>
+              <div className="h-12 w-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center shrink-0">
+                <i className="ri-heart-line text-2xl" />
+              </div>
+            </div>
+
             {/* Quick Browse Card */}
-            <div className="rounded-xl border border-gray-100 bg-card p-5 sm:p-6 shadow-xs flex items-center justify-between">
+            <div className="rounded-xl border border-gray-100 bg-card p-5 shadow-xs flex items-center justify-between">
               <div>
                 <span className="text-xs font-semibold text-muted-foreground block mb-1">
                   পাত্র-পাত্রী অনুসন্ধান
                 </span>
-                <div className="text-lg sm:text-xl font-bold text-brand">বায়োডাটা খুঁজুন</div>
+                <div className="text-base sm:text-lg font-bold text-brand">বায়োডাটা খুঁজুন</div>
                 <Link
                   href="/biodatas"
                   className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-pink hover:underline mt-1"

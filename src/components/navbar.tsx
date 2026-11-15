@@ -43,7 +43,6 @@ export function Logo({ light = false }: { light?: boolean }) {
 const NAV_LINKS = [
   { label: "হোম", href: "/" },
   { label: "বায়োডাটা", href: "/biodatas" },
-  { label: "শর্টলিস্ট", href: "/shortlist" },
   { label: "আমাদের সম্পর্কে", href: "/about" },
   { label: "জিজ্ঞাসা", href: "/faq" },
   { label: "নির্দেশনা", href: "/guide" },
