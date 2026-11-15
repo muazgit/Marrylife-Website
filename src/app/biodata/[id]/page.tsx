@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/navbar";
 import { toBengaliNumber, getAge, formatHeight } from "@/lib/utils/bengali";
+import { ContactRequestButton } from "@/components/contact-request-modal";
 
 const PUBLIC_BIODATA_DETAIL_COLUMNS =
   "id, biodata_number, gender, marital_status, birth_year, height_feet, height_inches, weight_kg, complexion, blood_group, prayer_frequency, observes_purdah_or_beard, mahram_non_mahram_care, quran_recitation_ability, religious_sect, education_medium, highest_degree, occupation, division, district, upazila, permanent_division, permanent_district, permanent_upazila, father_occupation, mother_occupation, brothers_count, sisters_count, financial_status, expected_partner_age_min, expected_partner_age_max, expected_partner_height_min, expected_partner_district, expected_partner_qualities" as const;
@@ -78,6 +79,47 @@ export default async function BiodataDetailPage({ params }: PageProps) {
 
   if (error || !biodata) {
     notFound();
+  }
+
+  // Auth & Proposal state
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let isOwnBiodata = false;
+  let hasUserBiodata = false;
+  let userCredits = 0;
+  let existingRequestStatus: "pending" | "accepted" | "rejected" | null = null;
+  let unlockedContact = null;
+
+  if (user) {
+    const [profileRes, userBioRes, requestRes] = await Promise.all([
+      supabase.from("profiles").select("credits").eq("id", user.id).maybeSingle(),
+      supabase.from("biodatas").select("id").eq("user_id", user.id).maybeSingle(),
+      supabase
+        .from("contact_requests")
+        .select("id, status")
+        .eq("sender_id", user.id)
+        .eq("target_biodata_id", biodata.id)
+        .maybeSingle(),
+    ]);
+
+    userCredits = profileRes.data?.credits ?? 0;
+    hasUserBiodata = Boolean(userBioRes.data?.id);
+    isOwnBiodata = userBioRes.data?.id === biodata.id;
+    existingRequestStatus =
+      (requestRes.data?.status as "pending" | "accepted" | "rejected") ?? null;
+
+    if (existingRequestStatus === "accepted") {
+      const { data: contact } = await supabase
+        .from("biodata_contacts")
+        .select(
+          "candidate_name, candidate_phone, guardian_name, guardian_relation, guardian_phone, email, full_address",
+        )
+        .eq("biodata_id", biodata.id)
+        .maybeSingle();
+      unlockedContact = contact;
+    }
   }
 
   const isGroom = biodata.gender === "groom";
@@ -173,13 +215,17 @@ export default async function BiodataDetailPage({ params }: PageProps) {
               </div>
 
               <div className="mt-5 pt-4 border-t border-gray-100">
-                <Link
-                  href="/login"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-xs sm:text-sm font-bold text-brand-foreground shadow-xs hover:bg-brand/90 transition-all"
-                >
-                  <i className="ri-shield-user-line" />
-                  অভিভাবকের যোগাযোগের অনুরোধ করুন
-                </Link>
+                <ContactRequestButton
+                  targetBiodataId={biodata.id}
+                  targetBiodataNumber={biodata.biodata_number}
+                  targetGender={biodata.gender}
+                  isLoggedIn={Boolean(user)}
+                  isOwnBiodata={isOwnBiodata}
+                  hasUserBiodata={hasUserBiodata}
+                  userCredits={userCredits}
+                  existingRequestStatus={existingRequestStatus}
+                  unlockedContact={unlockedContact}
+                />
               </div>
             </aside>
 

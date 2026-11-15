@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/navbar";
 import { toBengaliNumber } from "@/lib/utils/bengali";
 import { logoutAction } from "@/lib/actions/auth";
+import { DashboardProposals, type ProposalItem } from "@/components/dashboard-proposals";
 
 export const metadata = {
   title: "ব্যবহারকারী ড্যাশবোর্ড | MarryLife",
@@ -38,6 +39,30 @@ const BIODATA_STATUS_LABELS: Record<string, { label: string; badgeClass: string;
   },
 };
 
+interface BiodataSummary {
+  id: string;
+  biodata_number: number;
+  gender: string;
+  occupation: string;
+  permanent_district: string;
+  permanent_division: string;
+}
+
+interface RawProposalRow {
+  id: string;
+  status: "pending" | "accepted" | "rejected" | "cancelled";
+  created_at: string;
+  guardian_response_note: string | null;
+  biodata: BiodataSummary | BiodataSummary[] | null;
+}
+
+function extractBiodataSummary(
+  raw: BiodataSummary | BiodataSummary[] | null,
+): BiodataSummary | null {
+  if (!raw) return null;
+  return Array.isArray(raw) ? (raw[0] ?? null) : raw;
+}
+
 export default async function DashboardPage() {
   const supabase = await createClient();
 
@@ -68,6 +93,71 @@ export default async function DashboardPage() {
   const primaryBiodata = userBiodatas?.[0] || null;
   const credits = profile?.credits ?? 5;
   const fullName = profile?.full_name || user.user_metadata?.full_name || "সম্মানিত ব্যবহারকারী";
+
+  // Fetch proposals (Sent & Received)
+  const { data: sentRequests } = await supabase
+    .from("contact_requests")
+    .select(
+      `
+      id,
+      status,
+      created_at,
+      guardian_response_note,
+      biodata:biodatas!target_biodata_id(
+        id,
+        biodata_number,
+        gender,
+        occupation,
+        permanent_district,
+        permanent_division
+      )
+    `,
+    )
+    .eq("sender_id", user.id)
+    .order("created_at", { ascending: false });
+
+  let receivedRequests: RawProposalRow[] = [];
+  if (primaryBiodata?.id) {
+    const { data: received } = await supabase
+      .from("contact_requests")
+      .select(
+        `
+        id,
+        status,
+        created_at,
+        guardian_response_note,
+        biodata:biodatas!sender_biodata_id(
+          id,
+          biodata_number,
+          gender,
+          occupation,
+          permanent_district,
+          permanent_division
+        )
+      `,
+      )
+      .eq("target_biodata_id", primaryBiodata.id)
+      .order("created_at", { ascending: false });
+
+    receivedRequests = (received as unknown as RawProposalRow[]) || [];
+  }
+
+  const rawSent = (sentRequests as unknown as RawProposalRow[]) || [];
+  const formattedSentProposals: ProposalItem[] = rawSent.map((req) => ({
+    id: req.id,
+    status: req.status,
+    created_at: req.created_at,
+    guardian_response_note: req.guardian_response_note,
+    biodata: extractBiodataSummary(req.biodata),
+  }));
+
+  const formattedReceivedProposals: ProposalItem[] = receivedRequests.map((req) => ({
+    id: req.id,
+    status: req.status,
+    created_at: req.created_at,
+    guardian_response_note: req.guardian_response_note,
+    biodata: extractBiodataSummary(req.biodata),
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -293,6 +383,12 @@ export default async function DashboardPage() {
               )}
             </div>
           </div>
+
+          {/* Proposals Management Section */}
+          <DashboardProposals
+            receivedProposals={formattedReceivedProposals}
+            sentProposals={formattedSentProposals}
+          />
         </div>
       </main>
     </div>
