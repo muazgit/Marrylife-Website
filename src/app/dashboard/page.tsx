@@ -191,16 +191,28 @@ export default async function DashboardPage() {
             </p>
           </div>
 
-          {/* Logout Action */}
-          <form action={logoutAction}>
-            <button
-              type="submit"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2 text-xs sm:text-sm font-semibold text-foreground hover:bg-muted hover:text-rose-600 transition-colors shadow-2xs cursor-pointer"
-            >
-              <i className="ri-logout-box-r-line" />
-              <span>লগআউট</span>
-            </button>
-          </form>
+          <div className="flex items-center gap-2.5">
+            {(profile?.role === "admin" || profile?.role === "moderator") && (
+              <Link
+                href="/admin/moderation"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-xs sm:text-sm font-bold text-brand-foreground hover:bg-brand/90 transition-colors shadow-2xs"
+              >
+                <i className="ri-shield-star-line text-sm text-brand-pink" />
+                <span>মডারেশন প্যানেল</span>
+              </Link>
+            )}
+
+            {/* Logout Action */}
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2 text-xs sm:text-sm font-semibold text-foreground hover:bg-muted hover:text-rose-600 transition-colors shadow-2xs cursor-pointer"
+              >
+                <i className="ri-logout-box-r-line" />
+                <span>লগআউট</span>
+              </button>
+            </form>
+          </div>
         </div>
       </section>
 

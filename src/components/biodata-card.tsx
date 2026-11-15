@@ -42,9 +42,10 @@ const MARITAL_STATUS_LABELS: Record<string, string> = {
 
 interface BiodataCardProps {
   biodata: BiodataCardSummary;
+  onToggleFavorite?: (biodataId: string, isFavorite: boolean) => void;
 }
 
-export function BiodataCard({ biodata }: BiodataCardProps) {
+export function BiodataCard({ biodata, onToggleFavorite }: BiodataCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const age = getAge(biodata.birth_year);
   const biodataNumber = `ML-${toBengaliNumber(biodata.biodata_number)}`;
@@ -78,6 +79,8 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
 
       // Sync with database if user is authenticated
       toggleShortlistAction(biodata.id).catch(() => {});
+
+      onToggleFavorite?.(biodata.id, next);
 
       return next;
     });

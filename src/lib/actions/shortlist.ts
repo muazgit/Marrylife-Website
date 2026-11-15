@@ -50,6 +50,7 @@ export async function toggleShortlistAction(biodataId: string): Promise<Shortlis
     }
 
     revalidatePath("/shortlist");
+    revalidatePath("/dashboard");
     return {
       success: true,
       isShortlisted: false,
@@ -66,6 +67,7 @@ export async function toggleShortlistAction(biodataId: string): Promise<Shortlis
     }
 
     revalidatePath("/shortlist");
+    revalidatePath("/dashboard");
     return {
       success: true,
       isShortlisted: true,
@@ -109,7 +111,67 @@ export async function syncLocalShortlistAction(
   }
 
   revalidatePath("/shortlist");
+  revalidatePath("/dashboard");
   return { success: true, syncedCount: biodataIds.length };
+}
+
+/**
+ * Remove a specific biodata from the current user's shortlist
+ */
+export async function removeFromShortlistAction(
+  biodataId: string,
+): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: true };
+  }
+
+  const { error } = await supabase
+    .from("shortlists")
+    .delete()
+    .eq("user_id", user.id)
+    .eq("biodata_id", biodataId);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/shortlist");
+  revalidatePath("/dashboard");
+  return { success: true };
+}
+
+/**
+ * Clear all shortlisted biodatas for the current user
+ */
+export async function clearAllShortlistsAction(): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { success: true };
+  }
+
+  const { error } = await supabase.from("shortlists").delete().eq("user_id", user.id);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/shortlist");
+  revalidatePath("/dashboard");
+  return { success: true };
 }
 
 /**

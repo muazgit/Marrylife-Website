@@ -8,7 +8,12 @@ import {
   type BiodataCardSummary,
   SHORTLIST_STORAGE_KEY,
 } from "@/components/biodata-card";
-import { syncLocalShortlistAction, getShortlistedBiodatasAction } from "@/lib/actions/shortlist";
+import {
+  syncLocalShortlistAction,
+  getShortlistedBiodatasAction,
+  removeFromShortlistAction,
+  clearAllShortlistsAction,
+} from "@/lib/actions/shortlist";
 import { toBengaliNumber } from "@/lib/utils/bengali";
 
 interface ShortlistViewProps {
@@ -27,9 +32,14 @@ export function ShortlistView({ initialBiodatas, isLoggedIn }: ShortlistViewProp
       const localIds: string[] = saved ? JSON.parse(saved) : [];
 
       if (isLoggedIn && localIds.length > 0) {
-        // Sync local to database
+        // Sync local to database, then clear local copy to prevent duplicate/stale sync
         syncLocalShortlistAction(localIds).then((res) => {
           if (res.success) {
+            try {
+              window.localStorage.removeItem(SHORTLIST_STORAGE_KEY);
+            } catch {
+              // Ignore
+            }
             router.refresh();
           }
         });
@@ -54,14 +64,52 @@ export function ShortlistView({ initialBiodatas, isLoggedIn }: ShortlistViewProp
     }
   }, [initialBiodatas, isLoggedIn]);
 
-  const handleClearAll = () => {
+  const handleRemoveOne = async (biodataId: string) => {
+    // Optimistic removal from UI
+    setBiodatas((prev) => prev.filter((b) => b.id !== biodataId));
+
+    // Remove from localStorage
+    try {
+      const saved = window.localStorage.getItem(SHORTLIST_STORAGE_KEY);
+      if (saved) {
+        const ids: string[] = JSON.parse(saved);
+        const updated = ids.filter((id) => id !== biodataId);
+        window.localStorage.setItem(SHORTLIST_STORAGE_KEY, JSON.stringify(updated));
+      }
+    } catch {
+      // Ignore
+    }
+
+    // Remove from Supabase if logged in
+    if (isLoggedIn) {
+      const res = await removeFromShortlistAction(biodataId);
+      if (!res.success) {
+        // If error, refresh to get true state
+        router.refresh();
+      } else {
+        router.refresh();
+      }
+    }
+  };
+
+  const handleClearAll = async () => {
     if (!confirm("আপনি কি নিশ্চিতভাবে শর্টলিস্টের সকল বায়োডাটা মুছে ফেলতে চান?")) return;
+
+    // Optimistically clear local state
+    setBiodatas([]);
+
+    // Clear localStorage
     try {
       window.localStorage.removeItem(SHORTLIST_STORAGE_KEY);
     } catch {
       // Ignore
     }
-    setBiodatas([]);
+
+    // Clear Supabase DB
+    if (isLoggedIn) {
+      await clearAllShortlistsAction();
+    }
+
     router.refresh();
   };
 
@@ -139,7 +187,25 @@ export function ShortlistView({ initialBiodatas, isLoggedIn }: ShortlistViewProp
         /* Biodata Cards Grid */
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {biodatas.map((bio) => (
-            <BiodataCard key={bio.id} biodata={bio} />
+            <div key={bio.id} className="flex flex-col">
+              <BiodataCard
+                biodata={bio}
+                onToggleFavorite={(id, isFav) => {
+                  if (!isFav) {
+                    handleRemoveOne(id);
+                  }
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => handleRemoveOne(bio.id)}
+                className="mt-2 inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg border border-rose-200/80 bg-rose-50/60 text-xs font-semibold text-rose-700 hover:bg-rose-100 hover:border-rose-300 transition-colors cursor-pointer"
+                title="শর্টলিস্ট থেকে বাদ দিন"
+              >
+                <i className="ri-delete-bin-line text-xs" />
+                <span>শর্টলিস্ট থেকে সরান</span>
+              </button>
+            </div>
           ))}
         </div>
       )}
