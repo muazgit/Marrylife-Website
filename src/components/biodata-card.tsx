@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { toBengaliNumber, getAge, formatHeight } from "@/lib/utils/bengali";
+import { toggleShortlistAction } from "@/lib/actions/shortlist";
 import type { Tables } from "@/types/database.types";
 
 export type BiodataCardSummary = Pick<
@@ -21,7 +22,7 @@ export type BiodataCardSummary = Pick<
   | "permanent_division"
 >;
 
-const SHORTLIST_STORAGE_KEY = "marrylife_shortlist";
+export const SHORTLIST_STORAGE_KEY = "marrylife_shortlist";
 
 /* ---------- Label mappings ---------- */
 
@@ -74,6 +75,10 @@ export function BiodataCard({ biodata }: BiodataCardProps) {
       } catch {
         // Ignore storage errors
       }
+
+      // Sync with database if user is authenticated
+      toggleShortlistAction(biodata.id).catch(() => {});
+
       return next;
     });
   };
