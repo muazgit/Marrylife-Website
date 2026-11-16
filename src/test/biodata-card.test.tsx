@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { BiodataCard, type BiodataCardSummary } from "@/components/biodata-card";
 
@@ -17,7 +17,7 @@ const sampleBiodata: BiodataCardSummary = {
 };
 
 describe("BiodataCard", () => {
-  it("renders Bengali biodata number, labels with colons, and toggles wishlist", () => {
+  it("renders Bengali biodata number, labels with colons, and toggles wishlist", async () => {
     render(<BiodataCard biodata={sampleBiodata} />);
 
     expect(screen.getByText("ML-১২")).toBeInTheDocument();
@@ -27,7 +27,11 @@ describe("BiodataCard", () => {
 
     const wishlistBtn = screen.getByRole("button", { name: "Wishlist" });
     expect(wishlistBtn).toHaveAttribute("aria-pressed", "false");
-    fireEvent.click(wishlistBtn);
+
+    await act(async () => {
+      fireEvent.click(wishlistBtn);
+    });
+
     expect(wishlistBtn).toHaveAttribute("aria-pressed", "true");
   });
 });

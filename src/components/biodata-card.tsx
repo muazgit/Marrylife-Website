@@ -77,7 +77,7 @@ export function BiodataCard({ biodata, onToggleFavorite }: BiodataCardProps) {
         // Ignore storage errors
       }
 
-      // Sync with database if user is authenticated
+      // Sync with database if user is authenticated (guests rely on localStorage)
       toggleShortlistAction(biodata.id).catch(() => {});
 
       onToggleFavorite?.(biodata.id, next);

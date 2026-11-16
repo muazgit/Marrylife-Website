@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -31,6 +32,53 @@ const PRAYER_FREQUENCY_LABELS: Record<string, string> = {
 
 interface PageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+
+  if (!UUID_REGEX.test(id)) {
+    return {
+      title: "বায়োডাটা পাওয়া যায়নি | MarryLife",
+    };
+  }
+
+  const supabase = await createClient();
+  const { data: biodata } = await supabase
+    .from("biodatas")
+    .select(
+      "biodata_number, gender, birth_year, occupation, permanent_district, permanent_division",
+    )
+    .eq("id", id)
+    .eq("status", "approved")
+    .maybeSingle();
+
+  if (!biodata) {
+    return {
+      title: "বায়োডাটা পাওয়া যায়নি | MarryLife",
+    };
+  }
+
+  const roleLabel = biodata.gender === "groom" ? "পাত্রের বায়োডাটা" : "পাত্রীর বায়োডাটা";
+  const biodataCode = `ML-${toBengaliNumber(biodata.biodata_number)}`;
+  const age = toBengaliNumber(getAge(biodata.birth_year));
+  const title = `${roleLabel} (${biodataCode}) | MarryLife`;
+  const description = `${roleLabel} ${biodataCode} · বয়স: ${age} বছর · পেশা: ${biodata.occupation} · জেলা: ${biodata.permanent_district}, ${biodata.permanent_division}। সম্পূর্ণ শরীয়াহসম্মত ও নিরাপদ ইসলামিক বৈবাহিক প্ল্যাটফর্ম।`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "profile",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {

@@ -118,6 +118,24 @@ export async function sendContactRequestAction(
   // 6. Privileged execution with admin client (deducts 1 credit and inserts request)
   const adminClient = createAdminClient();
 
+  // Optimistic concurrency control: atomically decrement 1 credit only if user has >= 1 credits
+  // and credits match expected profile.credits to prevent double-spending on concurrent requests.
+  const { data: updatedProfile, error: creditError } = await adminClient
+    .from("profiles")
+    .update({ credits: profile.credits - 1 })
+    .eq("id", user.id)
+    .eq("credits", profile.credits)
+    .gte("credits", 1)
+    .select("credits")
+    .maybeSingle();
+
+  if (creditError || !updatedProfile) {
+    return {
+      error:
+        "ক্রেডিট সমন্বয় করতে সমস্যা হয়েছে বা পর্যাপ্ত ক্রেডিট নেই। অনুগ্রহ করে পুনরায় চেষ্টা করুন।",
+    };
+  }
+
   // Insert contact request
   const { error: insertError } = await adminClient.from("contact_requests").insert({
     sender_id: user.id,
@@ -128,17 +146,16 @@ export async function sendContactRequestAction(
   });
 
   if (insertError) {
+    // Roll back credit deduction if request insert fails
+    await adminClient.from("profiles").update({ credits: profile.credits }).eq("id", user.id);
+
+    if (insertError.code === "23505") {
+      return {
+        error:
+          "আপনি ইতিপূর্বে এই বায়োডাটায় যোগাযোগের অনুরোধ পাঠিয়েছেন, যা বর্তমানে বিদ্যমান রয়েছে।",
+      };
+    }
     return { error: `অনুরোধ পাঠাতে ত্রুটি: ${insertError.message}` };
-  }
-
-  // Deduct 1 credit safely via admin client
-  const { error: creditError } = await adminClient
-    .from("profiles")
-    .update({ credits: Math.max(0, profile.credits - 1) })
-    .eq("id", user.id);
-
-  if (creditError) {
-    console.error("Failed to deduct credit:", creditError);
   }
 
   revalidatePath("/dashboard");
@@ -267,7 +284,7 @@ export async function cancelContactRequestAction(requestId: string): Promise<Pro
     return { error: `অনুরোধ বাতিল করতে ত্রুটি: ${delError.message}` };
   }
 
-  // Refund 1 credit
+  // Refund 1 credit safely with optimistic concurrency check
   const { data: profile } = await adminClient
     .from("profiles")
     .select("credits")
@@ -278,7 +295,8 @@ export async function cancelContactRequestAction(requestId: string): Promise<Pro
     await adminClient
       .from("profiles")
       .update({ credits: profile.credits + 1 })
-      .eq("id", user.id);
+      .eq("id", user.id)
+      .eq("credits", profile.credits);
   }
 
   revalidatePath("/dashboard");
